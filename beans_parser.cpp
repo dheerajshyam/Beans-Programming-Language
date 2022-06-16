@@ -375,7 +375,6 @@ void parseTree()
             {"1", "STRING"},
         vector<string>
             {"RPAREN"},
-
         vector<string>
             {"disp", "IDENTIFIER"},
         vector<string>
@@ -411,8 +410,7 @@ void parseTree()
 
         index++;
 
-        if(index
-            != token.size())
+        if(index != token.size())
         {
             InputStack* top = new InputStack();
             isPtr->top = top;
@@ -422,7 +420,7 @@ void parseTree()
 
     isPtr = isBottom;
 
-    while(isPtr != NULL)
+    while(isPtr->top != NULL)
     {
         bool grammarMatched = false;
         string token;
@@ -467,8 +465,7 @@ void parseTree()
                                 FIRST_table[first_value].end(), token) 
                                 != FIRST_table[first_value].end())
                             {
-                                if(isPtr->
-                                    top != NULL)
+                                if(isPtr->top != NULL)
                                 {
                                     string nextToken;
                                 
@@ -492,18 +489,16 @@ void parseTree()
                                         {
                                             string value = production[productionIndex];
                                             ssPtr->value = value;
+
                                             productionIndex++;
                                             
-                                            if(productionIndex != production.size())
-                                            {
-                                                StorageStack* top = new StorageStack();
-                                                ssPtr->top = top;
-                                                ssPtr = top;   
-                                            }
+                                            StorageStack* top = new StorageStack();
+                                            ssPtr->top = top;
+                                            ssPtr = top;
+
+                                            isPtr = isPtr->top;
                                         }
-                                        ssPtr = ssBottom;
                                         grammarMatched = true;
-                                        break;
                                     }
                                 }
                             }
@@ -565,18 +560,15 @@ void parseTree()
                                                         string value = production[productionIndex];
                                                         ssPtr->value = value;
                                                         productionIndex++;
-                                                        
-                                                        if(productionIndex
-                                                            != production.size())
-                                                        {
-                                                            StorageStack* top = new StorageStack();
-                                                            ssPtr->top = top;
-                                                            ssPtr = top;   
-                                                        }
+
+                                                        StorageStack* top = new StorageStack();
+                                                        ssPtr->top = top;
+                                                        ssPtr = top;
+
+                                                        isPtr = isPtr->top;
+
                                                     }
-                                                    ssPtr = ssBottom;
                                                     grammarMatched = true;
-                                                    break;
                                                 } 
                                             }
                                         }
@@ -593,19 +585,16 @@ void parseTree()
                                             {
                                                 string value = production[productionIndex];
                                                 ssPtr->value = value;
+
                                                 productionIndex++;
-                                                
-                                                if(productionIndex
-                                                    != production.size())
-                                                {
-                                                    StorageStack* top = new StorageStack();
-                                                    ssPtr->top = top;
-                                                    ssPtr = top;   
-                                                }
+
+                                                StorageStack* top = new StorageStack();
+                                                ssPtr->top = top;
+                                                ssPtr = top;
+
+                                                isPtr = isPtr->top;
                                             }
-                                            ssPtr = ssBottom;
                                             grammarMatched = true;
-                                            break;
                                         }
                                     } 
                                 }
@@ -622,18 +611,14 @@ void parseTree()
 
         if(!grammarMatched)
         {
-            if(isPtr->top == NULL)
-                isPtr = NULL;
-            else
-                isPtr = isPtr->top;
+            isPtr = isPtr->top;
         }
-        else
-            break;
     }
 
     isPtr = isBottom;
+    ssPtr = ssBottom;
 
-    while(ssPtr != NULL)
+    while(ssPtr->top != NULL)
     {
         string tokenType;
         bool isPoppedOut = false, isSymbol = false;
