@@ -360,8 +360,6 @@ void ParsingTable()
     }
 }
 
-void filter() {}
-
 void parseTree()
 {
     vector<vector<string>> tokens = 
