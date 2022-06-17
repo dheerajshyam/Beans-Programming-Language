@@ -16,9 +16,9 @@
   ptr->TokenType = "IDENTIFIER";
   ptr->lineno = lineno;
   ptr->count = 2;
-  ptr->marked = true;
 
   Token* link = new Token();
+  
   ptr->link = link;
   ptr = link;
 
@@ -46,9 +46,9 @@
   ptr->TokenType = "STRING";
   ptr->lineno = lineno;
   ptr->count = 2;
-  ptr->marked = true;
 
   Token* link = new Token();
+
   ptr->link = link;
   ptr = link;
   
@@ -60,9 +60,9 @@
   ptr->TokenType = "LPAREN";
   ptr->lineno = lineno;
   ptr->count = 1;
-  ptr->marked = true;
 
   Token* link = new Token();
+
   ptr->link = link;
   ptr = link;
 
@@ -73,9 +73,9 @@
   ptr->TokenType = "RPAREN";
   ptr->lineno = lineno;
   ptr->count = 1;
-  ptr->marked = true;
 
   Token* link = new Token();
+
   ptr->link = link;
   ptr = link;
 
@@ -89,32 +89,15 @@
 
 %%
 
-int yywrap() { return 1;}
+int yywrap() { return 1; }
 
 Token* lex(string filename)
 {
-    yyin = fopen( (char*)
-      filename.c_str(), "r" );
+    yyin = fopen( (char*) filename.c_str(), "r" );
     if(yyin == NULL)
       return NULL;
-    int tok;
     yylex();
     fclose(yyin);
-
-    ptr = head;
-    
-    while(ptr->link
-      != NULL)
-    {
-      if(!ptr->link->marked)
-      {
-        Token* nextPtr = ptr->link;
-        ptr->link = NULL;
-        delete nextPtr;
-      }
-      else
-        ptr = ptr->link;
-    }
 
     return head;
 }

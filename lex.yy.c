@@ -1853,21 +1853,6 @@ Token* lex(string filename)
     yylex();
     fclose(yyin);
 
-    ptr = head;
-    
-    while(ptr->link
-      != NULL)
-    {
-      if(!ptr->link->marked)
-      {
-        Token* nextPtr = ptr->link;
-        ptr->link = NULL;
-        delete nextPtr;
-      }
-      else
-        ptr = ptr->link;
-    }
-
     return head;
 }
 

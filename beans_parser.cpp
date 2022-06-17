@@ -398,16 +398,17 @@ void parseTree()
     StorageStack* ssPtr = ssBottom;
     ssPtr->bottom = NULL;
 
-    while(tokenPtr != NULL)
+    while(tokenPtr->link != NULL)
     {
         vector<string> token;
         
         if(tokenPtr->count == 2)
-            token = vector<string>
-                    {tokenPtr->value,tokenPtr->TokenType};
+        {
+            token.push_back(tokenPtr->value);
+            token.push_back(tokenPtr->TokenType);
+        }
         else if(tokenPtr->count == 1)
-            token = vector<string>
-                    {tokenPtr->TokenType};
+            token.push_back(tokenPtr->TokenType);
         
         isPtr->token = token;
 
@@ -424,14 +425,10 @@ void parseTree()
     while(isPtr->top != NULL)
     {
         bool grammarMatched = false;
-        string token;
-        
-        if(isPtr->token.size() > 1)
-            token = isPtr->token[1];
-        else
-            token = isPtr->token[0];
 
         int index = 0;
+
+        // Remove return in line 485 after storage stack is filling code is completed.
 
         while(index <
             sizeof(start_points)
@@ -458,174 +455,96 @@ void parseTree()
                     for(vector<string>
                         production: productions)
                     {
-                        string first_value = production[0];
+                        int productionIndex = 0;
+                        bool productionMatched = false;
                         
-                        if(isAllLower(first_value))
+                        while(productionIndex
+                            < production.size())
                         {
-                            if(std::find(FIRST_table[first_value].begin(),
-                                FIRST_table[first_value].end(), token) 
-                                != FIRST_table[first_value].end())
+                            string productionValue
+                                = production[productionIndex];
+                            
+                            string token;
+
+                            if((productionIndex
+                                != production.size() - 1) 
+                                && isPtr->top == NULL)
                             {
-                                if(isPtr->top != NULL)
+                                cout << "Invalid syntax provided." << endl;
+                                return;
+                            }
+                            else
+                            {
+                                if(isPtr->token.size() == 2)
+                                    token = isPtr->token[1];
+                                else
+                                    token = isPtr->token[0];
+                            }
+
+                            if(isAllLower
+                                (productionValue))
+                            {
+                                if( std::find(FIRST_table[productionValue].begin(),
+                                        FIRST_table[productionValue].end(), token)
+                                        == FIRST_table[productionValue].end())
                                 {
-                                    string nextToken;
-                                
-                                    if(isPtr->top != NULL
-                                        && isPtr->top->
-                                            token.size() == 2)
-                                        nextToken = isPtr->top->token[1];
-                                    
-                                    else if(isPtr->top 
-                                            != NULL)
-                                        nextToken = isPtr->top->token[0];
-                                    
-                                    if(std::find(FOLLOW_table[first_value].begin(),
-                                        FOLLOW_table[first_value].end(), nextToken)
-                                        != FOLLOW_table[first_value].end())
+                                    if(std::find(FOLLOW_table[productionValue].begin(),
+                                        FOLLOW_table[productionValue].end(), token)
+                                        == FOLLOW_table[productionValue].end())
                                     {
-                                        int productionIndex = 0;
-
-                                        while(productionIndex <
-                                                production.size())
-                                        {
-                                            string value = production[productionIndex];
-                                            ssPtr->value = value;
-
-                                            if(isPtr->top != NULL)
-                                                isPtr = isPtr->top;
-
-                                            productionIndex++;
-                                            
-                                            StorageStack* top = new StorageStack();
-                                            ssPtr->top = top;
-                                            ssPtr = top;
-                                        }
-                                        grammarMatched = true;
+                                        cout << "Not matched 1." << endl;
+                                        productionMatched = false;
+                                        return;
                                     }
                                 }
-                            }
-                        }
-                        else
-                        {
-                            if(first_value == token)
-                            {
-                                if(isPtr->top
-                                    != NULL)
+                                    
+                                if(predictive_parsing_table
+                                    [ non_terminal_id_mapping[productionValue] ]
+                                    [ terminal_id_mapping[token] ].size() != 0)
                                 {
-                                    string nextToken;
-                                
-                                    if(isPtr->top->
-                                        token.size() == 2)
-                                        nextToken =
-                                            isPtr->top->
-                                                token[1];
-                                    else
-                                        nextToken =
-                                            isPtr->top->
-                                                token[0];
-                                    
-                                    string secondValue 
-                                        = production[1];
-                                    
-                                    if(isAllLower(secondValue))
+                                    if(isPtr->top != NULL)
                                     {
-                                        if(std::find(FIRST_table[secondValue].begin(),
-                                            FIRST_table[secondValue].end(), nextToken)
-                                            != FIRST_table[secondValue].end())
-                                        {
-
-                                            if(isPtr->top->top
-                                                != NULL)
-                                            {
-                                                if(isPtr->top
-                                                    ->top != NULL
-                                                    && isPtr->top->
-                                                        top->token.size() == 2)
-                                                    nextToken = 
-                                                        isPtr->top->
-                                                        top->token[1];
-                                                else if(isPtr->top->
-                                                    top != NULL)
-                                                    nextToken = 
-                                                        isPtr->top->
-                                                        top->token[0];
-                                                
-                                                if(std::find(FOLLOW_table[secondValue].begin(),
-                                                    FOLLOW_table[secondValue].end(), nextToken)
-                                                    != FOLLOW_table[secondValue].end())
-                                                {
-                                                    int productionIndex = 0;
-
-                                                    while(productionIndex <
-                                                            production.size())
-                                                    {
-                                                        string value = production[productionIndex];
-                                                        ssPtr->value = value;
-                                                        
-                                                        if(isPtr->top != NULL)
-                                                            isPtr = isPtr->top;
-
-                                                        productionIndex++;
-
-                                                        StorageStack* top = new StorageStack();
-                                                        ssPtr->top = top;
-                                                        ssPtr = top;
-
-                                                    }
-                                                    grammarMatched = true;
-                                                } 
-                                            }
-                                        }
+                                        isPtr = isPtr->top;
                                     }
-                                    else
+                                }
+
+                                productionMatched = true;
+                            }
+                            else
+                            {
+                                if(productionValue == token)
+                                {
+                                    if(isPtr->top != NULL)
                                     {
-                                        if(secondValue
-                                            == nextToken)
-                                        {
-                                            int productionIndex = 0;
-
-                                            while(productionIndex <
-                                                    production.size())
-                                            {
-                                                string value = production[productionIndex];
-                                                ssPtr->value = value;
-
-                                                if(isPtr->top != NULL)
-                                                    isPtr = isPtr->top;
-
-                                                productionIndex++;
-
-                                                StorageStack* top = new StorageStack();
-                                                ssPtr->top = top;
-                                                ssPtr = top;
-                                            }
-                                            grammarMatched = true;
-                                        }
-                                    } 
+                                        isPtr = isPtr->top;
+                                    }
+                                    productionMatched = true;
+                                }
+                                else
+                                {
+                                    cout << "Not matched 2." << endl;
+                                    productionMatched = false;
+                                    return;
                                 }
                             }
+                            productionIndex++;
                         }
+                        break;
                     }
+                    break;
                 }
-
                 i++;
             }
-
             index++;
         }
-
-        if(!grammarMatched)
-        {
-            isPtr = isPtr->top;
-        }
-        else
-        {
-            cout << isPtr->token[0] << endl;
-        }
+        // if(isPtr->top != NULL)
+        //     isPtr = isPtr->top;
     }
 
     isPtr = isBottom;
     ssPtr = ssBottom;
+
+    return;
 
     while(ssPtr->top != NULL)
     {
