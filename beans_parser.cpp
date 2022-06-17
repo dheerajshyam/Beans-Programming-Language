@@ -1,18 +1,6 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <algorithm>
+#include "Token.hpp"
 
-using namespace std;
-
-struct Token
-{
-    int count;
-    string TokenType;
-    string value;
-
-    struct Token* link;
-};
+extern Token* lex(string filename);
 
 struct GrammarTable
 {
@@ -362,25 +350,38 @@ void ParsingTable()
 
 void parseTree()
 {
-    vector<vector<string>> tokens = 
+    string filename = "test.beans";
+
+    Token* tokenHead = lex(filename);
+    Token* tokenPtr = tokenHead;
+    
+    if(tokenHead == NULL)
     {
-        vector<string>
-            {"disp", "IDENTIFIER"},
-        vector<string>
-            {"LPAREN"},
-        vector<string>
-            {"1", "STRING"},
-        vector<string>
-            {"RPAREN"},
-        vector<string>
-            {"disp", "IDENTIFIER"},
-        vector<string>
-            {"LPAREN"},
-        vector<string>
-            {"1", "INTEGER"},
-        vector<string>
-            {"RPAREN"}
-    };
+        delete tokenPtr;
+        cout << "Unable to locate the provided filename \""
+                << filename << "\" in the directory" << endl;
+        return;
+    }
+
+    // vector<vector<string>> tokens = 
+    // {
+    //     vector<string>
+    //         {"disp", "IDENTIFIER"},
+    //     vector<string>
+    //         {"LPAREN"},
+    //     vector<string>
+    //         {"1", "STRING"},
+    //     vector<string>
+    //         {"RPAREN"},
+    //     vector<string>
+    //         {"disp", "IDENTIFIER"},
+    //     vector<string>
+    //         {"LPAREN"},
+    //     vector<string>
+    //         {"1", "INTEGER"},
+    //     vector<string>
+    //         {"RPAREN"}
+    // };
     
     OutputMappingStack* omsBottom 
         = new OutputMappingStack();
@@ -397,22 +398,25 @@ void parseTree()
     StorageStack* ssPtr = ssBottom;
     ssPtr->bottom = NULL;
 
-    int index = 0;
-    while(index < tokens.size())
+    while(tokenPtr != NULL)
     {
-        vector<string>
-            token = tokens[index];
+        vector<string> token;
+        
+        if(tokenPtr->count == 2)
+            token = vector<string>
+                    {tokenPtr->value,tokenPtr->TokenType};
+        else if(tokenPtr->count == 1)
+            token = vector<string>
+                    {tokenPtr->TokenType};
         
         isPtr->token = token;
 
-        index++;
-
-        if(index != token.size())
-        {
-            InputStack* top = new InputStack();
-            isPtr->top = top;
-            isPtr = top;
-        }
+        tokenPtr
+            = tokenPtr->link;
+        
+        InputStack* top = new InputStack();
+        isPtr->top = top;
+        isPtr = top;
     }
 
     isPtr = isBottom;
@@ -422,7 +426,7 @@ void parseTree()
         bool grammarMatched = false;
         string token;
         
-        if(isPtr->token.size() == 2)
+        if(isPtr->token.size() > 1)
             token = isPtr->token[1];
         else
             token = isPtr->token[0];
@@ -487,13 +491,14 @@ void parseTree()
                                             string value = production[productionIndex];
                                             ssPtr->value = value;
 
+                                            if(isPtr->top != NULL)
+                                                isPtr = isPtr->top;
+
                                             productionIndex++;
                                             
                                             StorageStack* top = new StorageStack();
                                             ssPtr->top = top;
                                             ssPtr = top;
-
-                                            isPtr = isPtr->top;
                                         }
                                         grammarMatched = true;
                                     }
@@ -556,13 +561,15 @@ void parseTree()
                                                     {
                                                         string value = production[productionIndex];
                                                         ssPtr->value = value;
+                                                        
+                                                        if(isPtr->top != NULL)
+                                                            isPtr = isPtr->top;
+
                                                         productionIndex++;
 
                                                         StorageStack* top = new StorageStack();
                                                         ssPtr->top = top;
                                                         ssPtr = top;
-
-                                                        isPtr = isPtr->top;
 
                                                     }
                                                     grammarMatched = true;
@@ -583,13 +590,14 @@ void parseTree()
                                                 string value = production[productionIndex];
                                                 ssPtr->value = value;
 
+                                                if(isPtr->top != NULL)
+                                                    isPtr = isPtr->top;
+
                                                 productionIndex++;
 
                                                 StorageStack* top = new StorageStack();
                                                 ssPtr->top = top;
                                                 ssPtr = top;
-
-                                                isPtr = isPtr->top;
                                             }
                                             grammarMatched = true;
                                         }
@@ -610,6 +618,10 @@ void parseTree()
         {
             isPtr = isPtr->top;
         }
+        else
+        {
+            cout << isPtr->token[0] << endl;
+        }
     }
 
     isPtr = isBottom;
@@ -621,7 +633,9 @@ void parseTree()
         bool isPoppedOut = false, isSymbol = false;
         
         if(isPtr->token.size() == 2)
+        {
             tokenType = isPtr->token[1];
+        }
         else
         {
             tokenType = isPtr->token[0];
@@ -635,6 +649,7 @@ void parseTree()
                 FIRST_table[ssPtr->value].end(), tokenType)
                 == FIRST_table[ssPtr->value].end())
             {
+                cout << ssPtr->value << ", " << tokenType << endl;
                 std::cout << "\nSyntax error 1." << endl;
                 return;
             }
@@ -721,9 +736,9 @@ void parseTree()
         {   
             std::cout << key << " -> ";
             for(string token : value)
-                std::cout << token << " ";
-            std::cout << endl;    
+                std::cout << token << " ";    
         }
+        std::cout << endl;
         
         ptr = ptr->top;
     }
