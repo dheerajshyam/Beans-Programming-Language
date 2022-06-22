@@ -28,7 +28,7 @@ GrammarTable* baseNode;
 map<string, vector<string>> FIRST_table;
 map<string, vector<string>> FOLLOW_table;
 
-vector<string> predictive_parsing_table[5][8];
+vector<string> predictive_parsing_table[6][8];
 
 enum TERMINAL_ID
 {
@@ -48,13 +48,18 @@ enum NON_TERMINAL_ID
     OBJECT,
     TYPE_OBJECT,
     PARAM,
-    PARAMS
+    PARAMS,
+    TUPLE
 };
 
 map<string,TERMINAL_ID> terminal_id_mapping;
 map<string,NON_TERMINAL_ID> non_terminal_id_mapping;
 
-string start_points[] = {"function_call"};
+string start_points[] 
+    =  {
+        "function_call",
+        "tuple"
+       };
 
 struct StorageStack
 {
@@ -90,34 +95,50 @@ int main()
     
     GrammarTable* function_call = new GrammarTable();
     function_call->key = "function_call";
-    function_call->values.push_back(vector<string>{"object", "LPAREN", "params", "RPAREN"});
+    function_call->values.push_back(
+        vector<string>{"object", "LPAREN", "params", "RPAREN"});
 
     GrammarTable* object = new GrammarTable();
     object->key = "object";
-    object->values.push_back(vector<string>{"typeobject"});
-    object->values.push_back(vector<string>{"IDENTIFIER"});
+    object->values.push_back(
+        vector<string>{"typeobject"});
+    object->values.push_back(
+        vector<string>{"IDENTIFIER"});
 
     GrammarTable* typeobject = new GrammarTable();
     typeobject->key = "typeobject";
-    typeobject->values.push_back(vector<string>{"STRING"});
-    typeobject->values.push_back(vector<string>{"INTEGER"});
-    typeobject->values.push_back(vector<string>{"FLOAT"});
-    typeobject->values.push_back(vector<string>{"DOUBLE"});
+    typeobject->values.push_back(
+        vector<string>{"STRING"});
+    typeobject->values.push_back(
+        vector<string>{"INTEGER"});
+    typeobject->values.push_back(
+        vector<string>{"FLOAT"});
+    typeobject->values.push_back(
+        vector<string>{"DOUBLE"});
 
     GrammarTable* param = new GrammarTable();
     param->key = "param";
-    param->values.push_back(vector<string>{"object"});
+    param->values.push_back(
+        vector<string>{"object"});
 
     GrammarTable* params = new GrammarTable();
     params->key = "params";
-    params->values.push_back(vector<string>{"param", "params"});
-    params->values.push_back(vector<string>{"EPSILON"});
+    params->values.push_back(
+        vector<string>{"param", "params"});
+    params->values.push_back(
+        vector<string>{"EPSILON"});
+
+    GrammarTable* tuple = new GrammarTable();
+    tuple->key = "tuple";
+    tuple->values.push_back(
+        vector<string>{"LPAREN", "RPAREN"});
 
     baseNode->attachedNodes.push_back(function_call);
     baseNode->attachedNodes.push_back(object);
     baseNode->attachedNodes.push_back(typeobject);
     baseNode->attachedNodes.push_back(param);
     baseNode->attachedNodes.push_back(params);
+    baseNode->attachedNodes.push_back(tuple);
     
     FIRST();
     FOLLOW();
@@ -330,6 +351,7 @@ void ParsingTable()
     non_terminal_id_mapping["typeobject"] = TYPE_OBJECT;
     non_terminal_id_mapping["param"] = PARAM;
     non_terminal_id_mapping["params"] = PARAMS;
+    non_terminal_id_mapping["tuple"] = TUPLE;
     
     for(int i = 0; i < baseNode->attachedNodes.size(); i++)
     {
@@ -435,10 +457,10 @@ void parseTree()
             /
             sizeof(*start_points))
         {
-            string key = start_points[index];
+            if(isPtr->top == NULL)
+                break;
             
-            vector<string> first;
-            vector<string> follow;
+            string _key = start_points[index];
 
             int i = 0;
 
@@ -446,8 +468,11 @@ void parseTree()
                 attachedNodes.size())
             {
                 if(baseNode->attachedNodes
-                    [i]->key == key)
+                    [i]->key == _key)
                 {
+                    cout << "Key: "
+                            << _key << endl;
+
                     vector<vector<string>>
                         productions = baseNode->
                             attachedNodes[i]->values;
@@ -456,16 +481,13 @@ void parseTree()
                         production: productions)
                     {
                         int productionIndex = 0;
-                        bool productionMatched = false;
                         
                         while(productionIndex
-                            < production.size())
+                                < production.size())
                         {
                             string productionValue
                                 = production[productionIndex];
                             
-                            string token;
-
                             if((productionIndex
                                 != production.size() - 1) 
                                 && isPtr->top == NULL)
@@ -473,29 +495,35 @@ void parseTree()
                                 cout << "Invalid syntax provided." << endl;
                                 return;
                             }
-                            else
-                            {
-                                if(isPtr->token.size() == 2)
-                                    token = isPtr->token[1];
-                                else
-                                    token = isPtr->token[0];
-                            }
 
                             if(isAllLower
                                 (productionValue))
                             {
-                                if( std::find(FIRST_table[productionValue].begin(),
-                                        FIRST_table[productionValue].end(), token)
-                                        == FIRST_table[productionValue].end())
+                                string token;
+                                
+                                if(isPtr->token.size() == 2)
+                                    token = isPtr->token[1];
+                                else
+                                    token = isPtr->token[0];
+                                
+                                if(std::find(
+                                    FIRST_table[productionValue].begin(),
+                                    FIRST_table[productionValue].end(), token
+                                    ) == FIRST_table[productionValue].end())
                                 {
-                                    if(std::find(FOLLOW_table[productionValue].begin(),
-                                        FOLLOW_table[productionValue].end(), token)
-                                        == FOLLOW_table[productionValue].end())
+                                    if(productionValue
+                                        != *production.begin())
                                     {
-                                        cout << "Not matched 1." << endl;
-                                        productionMatched = false;
-                                        return;
+                                        if(std::find(
+                                            FOLLOW_table[productionValue].begin(),
+                                            FOLLOW_table[productionValue].end(), token
+                                            ) == FOLLOW_table[productionValue].end())
+                                        {
+                                            cout << "Not matched 1." << endl;
+                                            return;
+                                        }
                                     }
+                                    else { goto _index_inc; }
                                 }
                                     
                                 if(predictive_parsing_table
@@ -504,26 +532,36 @@ void parseTree()
                                 {
                                     if(isPtr->top != NULL)
                                     {
+                                        if(isPtr->token.size() == 2)
+                                            cout << "Token: " << isPtr->token[1] << endl;
+                                        else
+                                            cout << "Token: " << isPtr->token[0] << endl;
                                         isPtr = isPtr->top;
                                     }
                                 }
-
-                                productionMatched = true;
                             }
                             else
                             {
+                                string token;
+                                
+                                if(isPtr->token.size() == 2)
+                                    token = isPtr->token[1];
+                                else
+                                    token = isPtr->token[0];
                                 if(productionValue == token)
                                 {
                                     if(isPtr->top != NULL)
                                     {
+                                        if(isPtr->token.size() == 2)
+                                            cout << "Token: " << isPtr->token[1] << endl;
+                                        else
+                                            cout << "Token: " << isPtr->token[0] << endl;
                                         isPtr = isPtr->top;
                                     }
-                                    productionMatched = true;
                                 }
                                 else
                                 {
                                     cout << "Not matched 2." << endl;
-                                    productionMatched = false;
                                     return;
                                 }
                             }
@@ -535,7 +573,10 @@ void parseTree()
                 }
                 i++;
             }
-            index++;
+            if(grammarMatched)
+                _index_inc: index++;
+            else
+                index = 0;
         }
         // if(isPtr->top != NULL)
         //     isPtr = isPtr->top;

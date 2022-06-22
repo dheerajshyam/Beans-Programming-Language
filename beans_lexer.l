@@ -8,6 +8,8 @@
 
 %}
 
+%x COMMENT
+
 %%
 
 [a-zA-Z_][a-zA-Z0-9_]* {
@@ -55,6 +57,18 @@
   str.clear();
 }
 
+[0-9]* {
+
+  ptr->TokenType = "INTEGER";
+  ptr->lineno = lineno;
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
+
 \( {
   
   ptr->TokenType = "LPAREN";
@@ -79,6 +93,32 @@
   ptr->link = link;
   ptr = link;
 
+}
+
+"***" {
+  string next;
+  bool commentEnded = false;
+  char c;
+  while((c = (char) yyinput()) != '\0')
+  {
+    if(next.length() == 3)
+    {
+      if(next != "***")
+      {
+        next.clear();
+        next += c;
+      }
+      else
+      {
+        commentEnded = true;
+        break;
+      }
+    }
+    next += c;
+  }
+  
+  if(!commentEnded)
+    return 0;
 }
 
 \n {lineno++;}
