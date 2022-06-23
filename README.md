@@ -37,7 +37,7 @@ This project is being open sourced under **GNU GPL license**. So you need to str
 **lex.yy.c** - This file contains flex compiled C source code.<br>
 **links.yaml** - Contains links for various repos which contains base and modified source codes along with this base repo.<br>
 **test.beans** - This file contains test source code of beans language.<br>
-**Grammar** - This file contains base grammar for beans language.<br>
+**Grammar.md** - This file contains base grammar for beans language.<br>
 
 <hr/>
 
