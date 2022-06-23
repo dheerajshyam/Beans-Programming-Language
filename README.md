@@ -2,7 +2,7 @@
 
 Beans is a new programming language which is being created with an initiative to make programming more fun, easier, efficient, available in various forms to develop in a multi-purpose way, etc. Generally programming languages are created for a certain purpose and later they are extended to be used as a general purpose programming language. Popular examples for this are:
 
-**Perl** (Main use: string manipiulation, Used as: General purpose programming language)<br>
+**Perl** (Main use: string manipulation, Used as: General purpose programming language)<br>
 **Java** (Main use: consumer electronic devices to communicate with each other, Used as: General purpose programming language)<br>
 **Python** (Main use: bridge the gap between C and the shell, Used as: General purpose programming language), **etc**.
 
