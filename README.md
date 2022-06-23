@@ -31,7 +31,7 @@ Token.hpp - This header file which contains code for data structure which holds 
 beans_lexer.l - This file contains flex code for lexer.<br>
 beans_parser.cpp - This file contains hand-written parser code for this language.<br>
 lex.yy.c - This file contains flex compiled C source code.<br>
-links.yaml - Contains links for various repos which contains base and modified source codes along with this base repo.
+links.yaml - Contains links for various repos which contains base and modified source codes along with this base repo.<br>
 test.beans - This file contains test source code of beans language.<br>
 Grammar - This file contains base grammar for beans language.<br>
 
