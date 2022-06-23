@@ -12,21 +12,6 @@ To avoid all these problems, I've come up with an idea to develop a programming 
 
 <hr/>
 
-**Guidelines**
-
-This project is being open sourced under **GNU GPL license**. So you need to strictly adhere to all the rules under this license and also adhere to following rules and regulations:<br>
-  
-  - Must respect each and every developer view for this project and no criticism should be done.
-  - Only source code files must be edited. Editing any other file(s) will be considered as violation of terms.
-  - Should not release complete proprietary/free software developed with this code into market without open sourcing the actual source code along with the actual base source code.
-  - Should not make changes to base grammar defined for this language. In case any changes made will be considered as violation of terms.
-  - Should not sell code for anyone after forking or cloning the code. In case any sale made will be considered as violation of terms.
-  - Modified code can be used for personal use and there is no need to open source the base and modified code. Also selling of personal use version of any form of this source code(code, executable, etc) are not allowed for sale or any other external purpose. Above kind of restricted usage will be considered as violation of terms.
-  - Proper documentation or README file must be included in the repo in which you are open sourcing your code along with the base code if you've decided to launch this software into market. If not provided will be considered as violation of terms.
-  - After creating a repo in which the both base and modified source codes are available, you need to add the repo link in the **links.yaml** file in this base repo, not in your new repo and the **links.yaml** file also should not be present in your new repo. In case of not performing any of the above mentioned tasks in this paragraph will be considered as violation of terms.
-
-<hr/>
-
 **Guide for files and folders in this repo**
 
   - **Grammar.md** - This file contains base grammar for beans language.<br>
@@ -42,6 +27,24 @@ This project is being open sourced under **GNU GPL license**. So you need to str
 <hr/>
 
 **About telegram channel**
+
+There is a dedicated telegram channel for discussions, idea(s) exchange(s), doubt(s) clarification(s), help(s), etc can be performed through this channel. This is the official community for this project.
+
+<hr/>
+
+**Guidelines**
+
+This project is being open sourced under **GNU GPL license**. So you need to strictly adhere to all the rules under this license and also adhere to following rules and regulations:<br>
+  
+  - Must respect each and every developer view for this project and no criticism should be done.
+  - Only source code files must be edited. Editing any other file(s) will be considered as violation of terms.
+  - Should not release complete proprietary/free software developed with this code into market without open sourcing the actual source code along with the actual base source code.
+  - Should not make changes to base grammar defined for this language. In case any changes made will be considered as violation of terms.
+  - Should not sell code for anyone after forking or cloning the code. In case any sale made will be considered as violation of terms.
+  - Modified code can be used for personal use and there is no need to open source the base and modified code. Also selling of personal use version of any form of this source code(code, executable, etc) are not allowed for sale or any other external purpose. Above kind of restricted usage will be considered as violation of terms.
+  - Proper documentation or README file must be included in the repo in which you are open sourcing your code along with the base code if you've decided to launch this software into market. If not provided will be considered as violation of terms.
+  - After creating a repo in which the both base and modified source codes are available, you need to add the repo link in the **links.yaml** file in this base repo, not in your new repo and the **links.yaml** file also should not be present in your new repo. In case of not performing any of the above mentioned tasks in this paragraph will be considered as violation of terms.
+  - Creating community/communities despite of/along with the official community created by me will be considered of violation of terms.
 
 <hr/>
 
