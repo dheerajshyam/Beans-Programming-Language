@@ -1,3 +1,7 @@
-# Beans-Programming-Language
+<b>About</b>:
 
-Visit https://guide.beans-language.in to read more about this project, guidelines to work on this projects, telegram channel usage guidelines and sponsorship guidelines. Thank you.
+<b>Guidelines</b>:
+
+<b>About telegram channel</b>:
+
+<b>Sponshorship request</b>:
