@@ -30,6 +30,8 @@ To avoid all these problems, I've come up with an idea to develop a programming 
 
 There is a dedicated telegram channel for discussions, idea(s) exchange(s), doubt(s) clarification(s), help(s), etc can be performed through this channel. This is the official community for this project.
 
+Link for telegram channel: https://t.me/beans_lang_community_official
+
 <hr/>
 
 **Guidelines**
