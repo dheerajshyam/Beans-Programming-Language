@@ -20,9 +20,11 @@ To avoid all these problems, I've come up with an idea to develop a programming 
   - Should not sell code for anyone after forking or cloning the code. In case any sale made will be considered as violation of terms.
   - Modified code can be used for personal use and there is no need to open source the base and modified code. Also selling of personal use version of any form of this source code(code, executable, etc) are not allowed for sale or any other external purpose. Above kind of restricted usage will be considered as violation of terms.
   - Proper documentation or README file must be included in the repo in which you are open sourcing your code along with the base code if you've decided to launch this software into market. If not provided will be considered as violation of terms.
-  - After creating a repo in which the both base and modified source codes are available, you need to add the repo link in the **links.yaml** file in this base repo, not in your new repo and the **links.yaml** file also should not be present in your new repo. In case of not performing any of the above mention tasks in this paragraph will be considered as violation of terms.
+  - After creating a repo in which the both base and modified source codes are available, you need to add the repo link in the **links.yaml** file in this base repo, not in your new repo and the **links.yaml** file also should not be present in your new repo. In case of not performing any of the above mentioned tasks in this paragraph will be considered as violation of terms.
 
 **Guide to source code**
+
+
 
 **About telegram channel**
 
