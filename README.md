@@ -12,7 +12,7 @@ To avoid all these problems, I've come up with an idea to develop a programming 
 
 **Guidelines**
 
-- This project is being open sourced under **GNU GPL license**. So you need to strictly adhere to all the rules under this license and also adhere to following rules and regulations:<br>
+This project is being open sourced under **GNU GPL license**. So you need to strictly adhere to all the rules under this license and also adhere to following rules and regulations:<br>
   
   - Must respect each and every developer view for this project and no criticism should be done.
   - Should not release complete proprietary/free software developed with this code into market without open sourcing the actual source code along with the actual base source code.
