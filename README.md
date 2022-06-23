@@ -18,7 +18,7 @@ To avoid all these problems, I've come up with an idea to develop a programming 
   - Should not release complete proprietary software without open sourcing the actual source code along with the actual base source code.
   - Should not make changes to base grammar defined for this language. In case any changes made will be considered as violation of terms.
   - Should not sell code for anyone after forking or cloning the code. In case any sale made will be considered as violation of terms.
-  - Modified code can be used for personal use and there is no need to open source the base and modified code. Also selling of personal use version of any form of this source code(code, executable, etc) are not allowed for sale or any other external purpose. Above kind of restricted usage will be considered as violation of terms. 
+  - Modified code can be used for personal use and there is no need to open source the base and modified code. Also selling of personal use version of any form of this source code(code, executable, etc) are not allowed for sale or any other external purpose. Above kind of restricted usage will be considered as violation of terms.
 
 **About telegram channel**
 
