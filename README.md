@@ -1,5 +1,7 @@
 **About**
 
+Hi my name is Venkata Subbu Dheeraj Shyam Polavarapu.
+
 Beans is a new programming language which is being created with an initiative to make programming more fun, easier, efficient, available in various forms to develop in a multi-purpose way, etc. Generally programming languages are created for a certain purpose and later they are extended to be used as a general purpose programming language. Popular examples for this are:
 
 **Perl** (Main use: string manipulation, Used as: General purpose programming language)<br>
@@ -47,3 +49,4 @@ This project is being open sourced under **GNU GPL license**. So you need to str
   - Proper documentation or README file must be included in the repo in which you are open sourcing your code along with the base code if you've decided to launch this software into market. If not provided will be considered as violation of terms.
   - After creating a repo in which the both base and modified source codes are available, you need to add the repo link in the **links.yaml** file in this base repo, not in your new repo and the **links.yaml** file also should not be present in your new repo. In case of not performing any of the above mentioned tasks in this paragraph will be considered as violation of terms.
   - Creating community/communities despite of/along with the official community created by me will be considered of violation of terms.
+  - After forking or cloning or start using the code, you've started accepting the above all terms and conditions.
