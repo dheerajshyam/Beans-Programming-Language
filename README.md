@@ -42,6 +42,7 @@ This project is being open sourced under **GNU GPL license**. So you need to str
   
   - Must respect each and every developer view for this project and no criticism should be done.
   - Only source code files must be edited. Editing any other file(s) will be considered as violation of terms.
+  - README.md file of this repo must not be present in your repo. If present will be considered as violation of terms.
   - Should not release complete proprietary/free software developed with this code into market without open sourcing the actual source code along with the actual base source code.
   - Should not make changes to base grammar defined for this language. In case any changes made will be considered as violation of terms.
   - Should not sell code for anyone after forking or cloning the code. In case any sale made will be considered as violation of terms.
