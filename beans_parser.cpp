@@ -384,26 +384,6 @@ void parseTree()
                 << filename << "\" in the directory" << endl;
         return;
     }
-
-    // vector<vector<string>> tokens = 
-    // {
-    //     vector<string>
-    //         {"disp", "IDENTIFIER"},
-    //     vector<string>
-    //         {"LPAREN"},
-    //     vector<string>
-    //         {"1", "STRING"},
-    //     vector<string>
-    //         {"RPAREN"},
-    //     vector<string>
-    //         {"disp", "IDENTIFIER"},
-    //     vector<string>
-    //         {"LPAREN"},
-    //     vector<string>
-    //         {"1", "INTEGER"},
-    //     vector<string>
-    //         {"RPAREN"}
-    // };
     
     OutputMappingStack* omsBottom 
         = new OutputMappingStack();
@@ -444,43 +424,46 @@ void parseTree()
 
     isPtr = isBottom;
 
-    while(isPtr->top != NULL)
+    while(isPtr
+            ->top != NULL)
     {
+        int index = 0;
         bool grammarMatched = false;
 
-        int index = 0;
-
-        // Remove return in line 485 after storage stack is filling code is completed.
+        // Remove return in line 568 after storage stack is filling code is completed.
 
         while(index <
             sizeof(start_points)
             /
             sizeof(*start_points))
         {
-            if(isPtr->top == NULL)
+            if(isPtr
+                ->top == NULL)
                 break;
             
-            string _key = start_points[index];
+            string _key
+                = start_points[index];
 
             int i = 0;
 
-            while(i < baseNode->
-                attachedNodes.size())
+            while(i < baseNode->attachedNodes.size())
             {
                 if(baseNode->attachedNodes
                     [i]->key == _key)
                 {
-                    cout << "Key: "
-                            << _key << endl;
+                    // cout << "Key: "
+                    //         << _key << endl;
 
                     vector<vector<string>>
                         productions = baseNode->
                             attachedNodes[i]->values;
                     
                     for(vector<string>
-                        production: productions)
+                        production
+                        :
+                        productions)
                     {
-                        int productionIndex = 0;
+                        int productionIndex= 0;
                         
                         while(productionIndex
                                 < production.size())
@@ -496,16 +479,16 @@ void parseTree()
                                 return;
                             }
 
+                            string token;
+                                
+                            if(isPtr->token.size() == 2)
+                                token = isPtr->token[1];
+                            else
+                                token = isPtr->token[0];
+
                             if(isAllLower
                                 (productionValue))
                             {
-                                string token;
-                                
-                                if(isPtr->token.size() == 2)
-                                    token = isPtr->token[1];
-                                else
-                                    token = isPtr->token[0];
-                                
                                 if(std::find(
                                     FIRST_table[productionValue].begin(),
                                     FIRST_table[productionValue].end(), token
@@ -519,6 +502,12 @@ void parseTree()
                                             FOLLOW_table[productionValue].end(), token
                                             ) == FOLLOW_table[productionValue].end())
                                         {
+                                            while(ssPtr != NULL)
+                                            {
+                                                StorageStack* currentPtr = ssPtr;
+                                                ssPtr = ssPtr->bottom;
+                                                delete currentPtr;
+                                            }
                                             cout << "Not matched 1." << endl;
                                             return;
                                         }
@@ -532,60 +521,65 @@ void parseTree()
                                 {
                                     if(isPtr->top != NULL)
                                     {
-                                        if(isPtr->token.size() == 2)
-                                            cout << "Token: " << isPtr->token[1] << endl;
-                                        else
-                                            cout << "Token: " << isPtr->token[0] << endl;
+                                        // if(isPtr->token.size() == 2)
+                                        //     cout << "Token: " << isPtr->token[1] << endl;
+                                        // else
+                                        //     cout << "Token: " << isPtr->token[0] << endl;
                                         isPtr = isPtr->top;
                                     }
                                 }
                             }
                             else
                             {
-                                string token;
-                                
-                                if(isPtr->token.size() == 2)
-                                    token = isPtr->token[1];
-                                else
-                                    token = isPtr->token[0];
                                 if(productionValue == token)
                                 {
                                     if(isPtr->top != NULL)
                                     {
-                                        if(isPtr->token.size() == 2)
-                                            cout << "Token: " << isPtr->token[1] << endl;
-                                        else
-                                            cout << "Token: " << isPtr->token[0] << endl;
+                                        // if(isPtr->token.size() == 2)
+                                        //     cout << "Token: " << isPtr->token[1] << endl;
+                                        // else
+                                        //     cout << "Token: " << isPtr->token[0] << endl;
                                         isPtr = isPtr->top;
                                     }
                                 }
                                 else
                                 {
+                                    while(ssPtr != NULL)
+                                    {
+                                        StorageStack* currentPtr = ssPtr;
+                                        ssPtr = ssPtr->bottom;
+                                        delete currentPtr;
+                                    }
+
                                     cout << "Not matched 2." << endl;
                                     return;
                                 }
                             }
                             productionIndex++;
+
+                            StorageStack* top = new StorageStack();
+                            StorageStack* prevPtr = ssPtr;
+
+                            ssPtr->value = productionValue;
+                            ssPtr->top = top;
+                            ssPtr = top;
+                            ssPtr->bottom = prevPtr;
                         }
-                        break;
                     }
+                    grammarMatched = true;
                     break;
                 }
                 i++;
             }
-            if(grammarMatched)
+            if(!grammarMatched)
                 _index_inc: index++;
             else
                 index = 0;
         }
-        // if(isPtr->top != NULL)
-        //     isPtr = isPtr->top;
     }
 
     isPtr = isBottom;
     ssPtr = ssBottom;
-
-    return;
 
     while(ssPtr->top != NULL)
     {
