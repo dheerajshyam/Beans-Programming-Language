@@ -430,8 +430,6 @@ void parseTree()
         int index = 0;
         bool grammarMatched = false;
 
-        // Remove return in line 568 after storage stack is filling code is completed.
-
         while(index <
             sizeof(start_points)
             /
@@ -475,6 +473,12 @@ void parseTree()
                                 != production.size() - 1) 
                                 && isPtr->top == NULL)
                             {
+                                while(ssPtr != NULL)
+                                {
+                                    StorageStack* currentPtr = ssPtr;
+                                    ssPtr = ssPtr->bottom;
+                                    delete currentPtr;
+                                }
                                 cout << "Invalid syntax provided." << endl;
                                 return;
                             }
