@@ -1,9 +1,7 @@
-// Author: Venkata Subbu Dheeraj Shyam Polavarapu.
-
 #pragma once
 
-#ifndef TOKEN_HPP
-#define TOKEN_HPP
+#ifndef TOKEN_H
+#define TOKEN_H
 
 #include <iostream>
 #include <vector>
@@ -25,4 +23,6 @@ struct Token
     struct Token* link;
 };
 
-#endif // TOKEN_HPP
+
+
+#endif

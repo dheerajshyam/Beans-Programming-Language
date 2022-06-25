@@ -1,5 +1,3 @@
-// Author: Venkata Subbu Dheeraj Shyam Polavarapu.
-
 #include "Token.hpp"
 
 extern Token* lex(string filename);
@@ -77,6 +75,7 @@ struct InputStack
     struct InputStack* bottom;
 
     vector<string> token;
+    int lineno;
 
     struct InputStack* top;
 };
@@ -415,12 +414,14 @@ void parseTree()
             token.push_back(tokenPtr->TokenType);
         
         isPtr->token = token;
+        isPtr->lineno = tokenPtr->lineno;
 
         tokenPtr
             = tokenPtr->link;
         
         InputStack* top = new InputStack();
         isPtr->top = top;
+        isPtr->top->bottom = isPtr;
         isPtr = top;
     }
 
@@ -451,9 +452,6 @@ void parseTree()
                 if(baseNode->attachedNodes
                     [i]->key == _key)
                 {
-                    // cout << "Key: "
-                    //         << _key << endl;
-
                     vector<vector<string>>
                         productions = baseNode->
                             attachedNodes[i]->values;
@@ -468,23 +466,15 @@ void parseTree()
                         while(productionIndex
                                 < production.size())
                         {
-                            string productionValue
-                                = production[productionIndex];
-                            
-                            if((productionIndex
-                                != production.size() - 1) 
-                                && isPtr->top == NULL)
+                            if(isPtr->top == NULL)
                             {
-                                while(ssPtr != NULL)
-                                {
-                                    StorageStack* currentPtr = ssPtr;
-                                    ssPtr = ssPtr->bottom;
-                                    delete currentPtr;
-                                }
-                                cout << "Invalid syntax provided." << endl;
+                                cout << "Invalid syntax provided in line: "
+                                        << isPtr->bottom->lineno << "." << endl;
                                 return;
                             }
 
+                            string productionValue
+                                = production[productionIndex];
                             string token;
                                 
                             if(isPtr->token.size() == 2)
@@ -508,14 +498,8 @@ void parseTree()
                                             FOLLOW_table[productionValue].end(), token
                                             ) == FOLLOW_table[productionValue].end())
                                         {
-                                            while(ssPtr != NULL)
-                                            {
-                                                StorageStack* currentPtr = ssPtr;
-                                                ssPtr = ssPtr->bottom;
-                                                delete currentPtr;
-                                            }
-                                            cout << "Not matched 1." << endl;
-                                            return;
+                                            cout << "Not matched: " << token << "." << endl;
+                                            goto last_point;
                                         }
                                     }
                                     else { goto _index_inc; }
@@ -526,13 +510,7 @@ void parseTree()
                                     [ terminal_id_mapping[token] ].size() != 0)
                                 {
                                     if(isPtr->top != NULL)
-                                    {
-                                        // if(isPtr->token.size() == 2)
-                                        //     cout << "Token: " << isPtr->token[1] << endl;
-                                        // else
-                                        //     cout << "Token: " << isPtr->token[0] << endl;
                                         isPtr = isPtr->top;
-                                    }
                                 }
                             }
                             else
@@ -540,25 +518,17 @@ void parseTree()
                                 if(productionValue == token)
                                 {
                                     if(isPtr->top != NULL)
-                                    {
-                                        // if(isPtr->token.size() == 2)
-                                        //     cout << "Token: " << isPtr->token[1] << endl;
-                                        // else
-                                        //     cout << "Token: " << isPtr->token[0] << endl;
                                         isPtr = isPtr->top;
-                                    }
                                 }
                                 else
                                 {
-                                    while(ssPtr != NULL)
+                                    if(productionValue
+                                        != *production.begin())
                                     {
-                                        StorageStack* currentPtr = ssPtr;
-                                        ssPtr = ssPtr->bottom;
-                                        delete currentPtr;
+                                        cout << "Not matched: " << token << "." << endl;
+                                        goto last_point;
                                     }
-
-                                    cout << "Not matched 2." << endl;
-                                    return;
+                                    else { goto _index_inc; }
                                 }
                             }
                             productionIndex++;
@@ -582,6 +552,8 @@ void parseTree()
             else
                 index = 0;
         }
+
+        last_point:;
     }
 
     isPtr = isBottom;
@@ -610,7 +582,8 @@ void parseTree()
                 == FIRST_table[ssPtr->value].end())
             {
                 cout << ssPtr->value << ", " << tokenType << endl;
-                std::cout << "\nSyntax error 1." << endl;
+                std::cout << "\nSyntax error found in line" 
+                        << isPtr->lineno << "." << endl;
                 return;
             }
             
@@ -667,7 +640,8 @@ void parseTree()
                     ssPtr->value.begin(), ::tolower);
                 
                 std::cout << "Syntax error: Unexpected " << tokenType 
-                    << " provided (expecting " << ssPtr->value << ")." << endl;
+                    << " provided (expecting " << ssPtr->value << ") in line" 
+                    << isPtr->lineno << "." << endl;
                 return;
             }
             InputStack* ptr = isPtr;
@@ -698,8 +672,7 @@ void parseTree()
             for(string token : value)
                 std::cout << token << " ";    
         }
-        std::cout << endl;
-        
+        cout << endl;
         ptr = ptr->top;
     }
 }

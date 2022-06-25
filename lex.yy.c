@@ -450,14 +450,12 @@ char *yytext;
 #line 2 "beans_lexer.l"
   #include "Token.hpp"
 
-  int lineno = 1;
-
   Token* head = new Token();
   Token* ptr = head;
 
-#line 458 "lex.yy.c"
+#line 456 "lex.yy.c"
 
-#line 460 "lex.yy.c"
+#line 458 "lex.yy.c"
 
 #define INITIAL 0
 #define COMMENT 1
@@ -675,10 +673,10 @@ YY_DECL
 		}
 
 	{
-#line 13 "beans_lexer.l"
+#line 11 "beans_lexer.l"
 
 
-#line 681 "lex.yy.c"
+#line 679 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -737,12 +735,12 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 15 "beans_lexer.l"
+#line 13 "beans_lexer.l"
 {
   
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 2;
 
   Token* link = new Token();
@@ -754,7 +752,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 29 "beans_lexer.l"
+#line 27 "beans_lexer.l"
 {
   
   string str;
@@ -775,7 +773,7 @@ YY_RULE_SETUP
 
   ptr->value = str;
   ptr->TokenType = "STRING";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 2;
 
   Token* link = new Token();
@@ -788,11 +786,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 60 "beans_lexer.l"
+#line 58 "beans_lexer.l"
 {
 
   ptr->TokenType = "INTEGER";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 1;
 
   Token* link = new Token();
@@ -803,11 +801,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 72 "beans_lexer.l"
+#line 70 "beans_lexer.l"
 {
   
   ptr->TokenType = "LPAREN";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 1;
 
   Token* link = new Token();
@@ -819,11 +817,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 85 "beans_lexer.l"
+#line 83 "beans_lexer.l"
 {
   
   ptr->TokenType = "RPAREN";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 1;
 
   Token* link = new Token();
@@ -835,7 +833,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 98 "beans_lexer.l"
+#line 96 "beans_lexer.l"
 {
   string next;
   bool commentEnded = false;
@@ -865,25 +863,25 @@ YY_RULE_SETUP
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 124 "beans_lexer.l"
-{lineno++;}
+#line 122 "beans_lexer.l"
+{yylineno++;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 126 "beans_lexer.l"
+#line 124 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 128 "beans_lexer.l"
+#line 126 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 130 "beans_lexer.l"
+#line 128 "beans_lexer.l"
 ECHO;
 	YY_BREAK
-#line 886 "lex.yy.c"
+#line 884 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -1889,7 +1887,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 130 "beans_lexer.l"
+#line 128 "beans_lexer.l"
 
 
 int yywrap() { return 1; }

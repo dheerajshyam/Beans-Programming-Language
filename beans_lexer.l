@@ -1,8 +1,6 @@
 %{
   #include "Token.hpp"
 
-  int lineno = 1;
-
   Token* head = new Token();
   Token* ptr = head;
 
@@ -16,7 +14,7 @@
   
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 2;
 
   Token* link = new Token();
@@ -46,7 +44,7 @@
 
   ptr->value = str;
   ptr->TokenType = "STRING";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 2;
 
   Token* link = new Token();
@@ -60,7 +58,7 @@
 [0-9]* {
 
   ptr->TokenType = "INTEGER";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 1;
 
   Token* link = new Token();
@@ -72,7 +70,7 @@
 \( {
   
   ptr->TokenType = "LPAREN";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 1;
 
   Token* link = new Token();
@@ -85,7 +83,7 @@
 \) {
   
   ptr->TokenType = "RPAREN";
-  ptr->lineno = lineno;
+  ptr->lineno = yylineno;
   ptr->count = 1;
 
   Token* link = new Token();
@@ -121,7 +119,7 @@
     return 0;
 }
 
-\n {lineno++;}
+\n {;}
 
 [ |\t\b\f\r] {;}
 
