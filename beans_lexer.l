@@ -4,9 +4,9 @@
   Token* head = new Token();
   Token* ptr = head;
 
-%}
+  bool lparen_found = false;
 
-%x COMMENT
+%}
 
 %%
 
@@ -68,7 +68,9 @@
 }
 
 \( {
-  
+
+  lparen_found = true;
+
   ptr->TokenType = "LPAREN";
   ptr->lineno = yylineno;
   ptr->count = 1;
@@ -81,15 +83,25 @@
 }
 
 \) {
-  
-  ptr->TokenType = "RPAREN";
-  ptr->lineno = yylineno;
-  ptr->count = 1;
 
-  Token* link = new Token();
+  if(lparen_found)
+  {
+    lparen_found = false;
 
-  ptr->link = link;
-  ptr = link;
+    ptr->TokenType = "RPAREN";
+    ptr->lineno = yylineno;
+    ptr->count = 1;
+
+    Token* link = new Token();
+
+    ptr->link = link;
+    ptr = link;
+  }
+  else
+  {
+    cout << "Unmatched ')' found in line: " << yylineno << endl;
+    exit(0);
+  }
 
 }
 
