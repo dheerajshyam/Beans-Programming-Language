@@ -41,6 +41,8 @@ Link for telegram channel: https://t.me/beans_lang_community_official
 After downloading all the files in this repo, open terminal for the location in which these files are located and type:
   g++ -std=c++17 lex.yy.c beans_parser.cpp
 
+<hr/>
+
 **Guidelines**
 
 This project is being open sourced under **GNU GPL license**. So you need to strictly adhere to all the rules under this license and also adhere to following rules and regulations:<br>
