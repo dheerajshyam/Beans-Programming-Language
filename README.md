@@ -39,11 +39,12 @@ Link for telegram channel: https://t.me/beans_lang_community_official
 **Compilation Instructions**
 
 After downloading all the files in this repo, open terminal for the location in which these files are located and type:
-  - g++ -std=c++17 lex.yy.c beans_parser.cpp
-  - If Windows:
-    - Type a and hit enter.
-  - If MacOS or Linux:
-    - Type ./a.out and hit enter.
+  - g++ -std=c++17 lex.yy.c beans_parser.cpp and hit enter
+  - Next
+    - If Windows:
+      - Type a and hit enter.
+    - If MacOS or Linux:
+      - Type ./a.out and hit enter.
 
 <hr/>
 
