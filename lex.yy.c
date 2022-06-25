@@ -762,9 +762,9 @@ YY_RULE_SETUP
   {
       if(c == '\0')
       {
-        cout << "Unexpected EOF while parsing string literal" << endl;
+        cout << "Unexpected EOF encountered while constructing string literal." << endl;
         str.clear();
-        return 0;
+        exit(0);
       }
 
       str += c;
@@ -864,7 +864,7 @@ case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
 #line 122 "beans_lexer.l"
-{yylineno++;}
+{;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP

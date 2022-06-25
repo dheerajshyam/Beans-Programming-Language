@@ -462,10 +462,12 @@ void parseTree()
                         productions)
                     {
                         int productionIndex= 0;
-                        
+                        bool hasRelation = false;
+
                         while(productionIndex
                                 < production.size())
                         {
+                            _loop_top:;
                             if(isPtr->top == NULL)
                             {
                                 cout << "Invalid syntax provided in line: "
@@ -473,14 +475,17 @@ void parseTree()
                                 return;
                             }
 
-                            string productionValue
-                                = production[productionIndex];
+                            bool skipProductionInc = false;
+
                             string token;
                                 
                             if(isPtr->token.size() == 2)
                                 token = isPtr->token[1];
                             else
                                 token = isPtr->token[0];
+                            
+                            string productionValue
+                                = production[productionIndex];                            
 
                             if(isAllLower
                                 (productionValue))
@@ -498,19 +503,25 @@ void parseTree()
                                             FOLLOW_table[productionValue].end(), token
                                             ) == FOLLOW_table[productionValue].end())
                                         {
-                                            cout << "Not matched: " << token << "." << endl;
-                                            goto last_point;
+                                            cout << "Not matched 1: " << token << "." << endl;
+                                            return;
                                         }
                                     }
-                                    else { goto _index_inc; }
                                 }
-                                    
+
                                 if(predictive_parsing_table
                                     [ non_terminal_id_mapping[productionValue] ]
                                     [ terminal_id_mapping[token] ].size() != 0)
                                 {
                                     if(isPtr->top != NULL)
+                                    {
                                         isPtr = isPtr->top;
+                                        goto _production_inc_skip;
+                                    }
+                                }
+                                else
+                                {
+                                    goto _production_inc;
                                 }
                             }
                             else
@@ -518,28 +529,39 @@ void parseTree()
                                 if(productionValue == token)
                                 {
                                     if(isPtr->top != NULL)
+                                    {
                                         isPtr = isPtr->top;
+                                        goto _production_inc;
+                                    }
                                 }
                                 else
                                 {
                                     if(productionValue
                                         != *production.begin())
                                     {
-                                        cout << "Not matched: " << token << "." << endl;
-                                        goto last_point;
+                                        cout << "Not matched 2: " << token << "." << endl;
+                                        return;
                                     }
-                                    else { goto _index_inc; }
+                                    else
+                                        goto _index_inc;
                                 }
                             }
-                            productionIndex++;
 
-                            StorageStack* top = new StorageStack();
-                            StorageStack* prevPtr = ssPtr;
+                            _production_inc:
+                            {
+                                ssPtr->value = productionValue;
 
-                            ssPtr->value = productionValue;
-                            ssPtr->top = top;
-                            ssPtr = top;
-                            ssPtr->bottom = prevPtr;
+                                StorageStack* top = new StorageStack();
+                                StorageStack* prevPtr = ssPtr;
+
+                                ssPtr->top = top;
+                                ssPtr = top;
+                                ssPtr->bottom = prevPtr;
+                                
+                                productionIndex++;
+                            };
+
+                            _production_inc_skip: {};
                         }
                     }
                     grammarMatched = true;
@@ -552,8 +574,6 @@ void parseTree()
             else
                 index = 0;
         }
-
-        last_point:;
     }
 
     isPtr = isBottom;

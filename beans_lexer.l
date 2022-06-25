@@ -33,9 +33,9 @@
   {
       if(c == '\0')
       {
-        cout << "Unexpected EOF while parsing string literal" << endl;
+        cout << "Unexpected EOF encountered while constructing string literal." << endl;
         str.clear();
-        return 0;
+        exit(0);
       }
 
       str += c;
