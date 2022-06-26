@@ -402,14 +402,14 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[10] =
     {   0,
-        1,    1,    2,    1,    1,    1,    1,    3,    3
+        1,    1,    1,    1,    1,    1,    1,    2,    2
     } ;
 
 static const flex_int16_t yy_base[26] =
     {   0,
         0,    0,    0,    0,   22,   23,   23,   23,   23,   23,
        23,   14,   12,    0,   12,   10,    0,   10,    9,    8,
-        7,    6,   23,    8,    9
+        7,    6,   23,   10,    9
     } ;
 
 static const flex_int16_t yy_def[26] =
@@ -422,7 +422,7 @@ static const flex_int16_t yy_def[26] =
 static const flex_int16_t yy_nxt[33] =
     {   0,
         6,    7,    8,    9,   10,   11,   12,   13,   14,   19,
-       17,   19,   22,   22,   21,   20,   20,   16,   18,   16,
+       19,   17,   22,   22,   21,   20,   20,   16,   18,   16,
        15,   23,    5,   23,   23,   23,   23,   23,   23,   23,
        23,   23
     } ;
@@ -430,7 +430,7 @@ static const flex_int16_t yy_nxt[33] =
 static const flex_int16_t yy_chk[33] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,   25,
-       24,   25,   22,   21,   20,   19,   18,   16,   15,   13,
+       25,   24,   22,   21,   20,   19,   18,   16,   15,   13,
        12,    5,   23,   23,   23,   23,   23,   23,   23,   23,
        23,   23
     } ;
@@ -849,6 +849,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case 6:
+/* rule 6 can match eol */
 YY_RULE_SETUP
 #line 110 "beans_lexer.l"
 ;
@@ -874,7 +875,7 @@ YY_RULE_SETUP
 #line 118 "beans_lexer.l"
 ECHO;
 	YY_BREAK
-#line 877 "lex.yy.c"
+#line 878 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
