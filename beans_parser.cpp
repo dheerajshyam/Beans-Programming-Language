@@ -1,3 +1,5 @@
+// Author: Venkata Subbu Dheeraj Shyam Polavarapu.
+
 #include "Token.hpp"
 
 extern Token* lex(string filename);
@@ -470,7 +472,7 @@ void parseTree()
                             _loop_top:;
                             if(isPtr->top == NULL)
                             {
-                                cout << "Invalid syntax provided in line: "
+                                cout << "Invalid syntax provided in line "
                                         << isPtr->bottom->lineno << "." << endl;
                                 return;
                             }
@@ -602,7 +604,7 @@ void parseTree()
                 == FIRST_table[ssPtr->value].end())
             {
                 cout << ssPtr->value << ", " << tokenType << endl;
-                std::cout << "\nSyntax error found in line" 
+                std::cout << "\nSyntax error found in line " 
                         << isPtr->lineno << "." << endl;
                 return;
             }
@@ -660,7 +662,7 @@ void parseTree()
                     ssPtr->value.begin(), ::tolower);
                 
                 std::cout << "Syntax error: Unexpected " << tokenType 
-                    << " provided (expecting " << ssPtr->value << ") in line" 
+                    << " provided (expecting " << ssPtr->value << ") in line " 
                     << isPtr->lineno << "." << endl;
                 return;
             }
