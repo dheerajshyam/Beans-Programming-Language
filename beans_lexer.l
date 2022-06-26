@@ -69,6 +69,30 @@
   ptr = link;
 }
 
+[0-9]*\.[0-9]* {
+
+  ptr->TokenType = "DOUBLE";
+  ptr->lineno = yylineno;
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
+
+-[0-9]*\.[0-9]* {
+
+  ptr->TokenType = "FLOAT";
+  ptr->lineno = yylineno;
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
+
 \( {
 
   lparen_found = true;
