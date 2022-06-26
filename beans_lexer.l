@@ -1,6 +1,6 @@
 %{
   // Author: Venkata Subbu Dheeraj Shyam Polavarapu.
-  
+
   #include "Token.hpp"
 
   Token* head = new Token();
@@ -133,7 +133,16 @@
 
 }
 
-"***"((.|\n)*)"***" ;
+\, {
+  ptr->TokenType = "COMMA";
+  ptr->lineno = yylineno;
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
 
 \n {;}
 
