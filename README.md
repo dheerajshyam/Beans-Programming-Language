@@ -12,6 +12,8 @@ If we observe here, popular languages in this world are primarily developed for 
 
 To avoid all these problems, I've come up with an idea to develop a programming language which will be available in various flavours just like linux kernel which can be used to develop multiple OS flavours of your own. Only similarity is linux is a kernel, initially developed with only 10,000 lines of code, this beans is an LL(1) parser (not so professionally coded), which can be used to develop a brand new programming language on top of it. This parser is being completely programmed by me, so that the code may not look professional, may not be completely optimized and so on. If you feel creepy after looking my code, I am extremely sorry for it.
 
+One of the inspiration to create this project: https://stackoverflow.com/a/15780377
+
 <hr/>
 
 **Guide for files and folders in this repo**
