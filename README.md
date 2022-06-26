@@ -54,10 +54,11 @@ After downloading all the files in this repo, open terminal for the location in 
 This project is being open sourced under **GNU GPL license**. So you need to strictly adhere to all the rules under this license and also adhere to following rules and regulations:<br>
   
   - Must respect each and every developer view for this project and no criticism should be done.
+  - Should not visit this repo without logging in. If in case visited without logging in for first tine, login and visit next time. If not logged in will be considered as violation of terms.
   - Only source code files must be edited. Editing any other file(s) will be considered as violation of terms.
   - README.md file of this repo must not be present in your repo. If present will be considered as violation of terms.
-  - Should not release complete proprietary/free software developed with this code into market without open sourcing the actual source code along with the actual base source code.
-  - Should not copy or use any other mechanism to get code from this repository without forking or cloning.
+  - Should not release complete proprietary/free software developed with this code into market without open sourcing the modified source code along with the actual base source code.
+  - Should not copy & paste the code or use any other mechanism to get code from this repository without forking or cloning.
   - Should not make changes to base grammar defined for this language. In case any changes made will be considered as violation of terms.
   - Should not sell code for anyone after forking or cloning or start using the code. In case any sale made will be considered as violation of terms.
   - Modified code can be used for personal use and there is no need to open source the base and modified code. Also selling of personal use version of any form of this source code(code, executable, etc) are not allowed for sale or any other external purposes. Above kind of restricted usage mentioned in this paragraph will be considered as violation of terms.
