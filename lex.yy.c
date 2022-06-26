@@ -361,10 +361,11 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[18] =
+static const flex_int16_t yy_accept[24] =
     {   0,
-        3,    3,   11,    9,    8,    7,    2,    4,    5,    9,
-        3,    1,    0,    3,    1,    6,    0
+        3,    3,    3,    3,   11,    9,    8,    7,    2,    4,
+        5,    9,    3,    1,    0,    3,    1,    0,    0,    0,
+        0,    6,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -401,33 +402,37 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[10] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    2,    2
+        1,    1,    2,    1,    1,    1,    1,    3,    3
     } ;
 
-static const flex_int16_t yy_base[19] =
+static const flex_int16_t yy_base[26] =
     {   0,
-        0,    0,   15,   16,   16,   16,   16,   16,   16,    7,
-        5,    0,    5,    3,    0,   16,   16,    8
+        0,    0,    0,    0,   22,   23,   23,   23,   23,   23,
+       23,   14,   12,    0,   12,   10,    0,   10,    9,    8,
+        7,    6,   23,    8,    9
     } ;
 
-static const flex_int16_t yy_def[19] =
+static const flex_int16_t yy_def[26] =
     {   0,
-       17,    1,   17,   17,   17,   17,   17,   17,   17,   17,
-       17,   18,   17,   17,   18,   17,    0,   17
+       23,    1,    1,    1,   23,   23,   23,   23,   23,   23,
+       23,   23,   23,   24,   23,   23,   24,   25,   25,   25,
+       25,   25,    0,   23,   23
     } ;
 
-static const flex_int16_t yy_nxt[26] =
+static const flex_int16_t yy_nxt[33] =
     {   0,
-        4,    5,    6,    7,    8,    9,   10,   11,   12,   15,
-       14,   16,   14,   13,   17,    3,   17,   17,   17,   17,
-       17,   17,   17,   17,   17
+        6,    7,    8,    9,   10,   11,   12,   13,   14,   19,
+       17,   19,   22,   22,   21,   20,   20,   16,   18,   16,
+       15,   23,    5,   23,   23,   23,   23,   23,   23,   23,
+       23,   23
     } ;
 
-static const flex_int16_t yy_chk[26] =
+static const flex_int16_t yy_chk[33] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,   18,
-       14,   13,   11,   10,    3,   17,   17,   17,   17,   17,
-       17,   17,   17,   17,   17
+        1,    1,    1,    1,    1,    1,    1,    1,    1,   25,
+       24,   25,   22,   21,   20,   19,   18,   16,   15,   13,
+       12,    5,   23,   23,   23,   23,   23,   23,   23,   23,
+       23,   23
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -453,10 +458,12 @@ char *yytext;
 
   bool lparen_found = false;
 
-#line 456 "lex.yy.c"
-#line 457 "lex.yy.c"
+#line 461 "lex.yy.c"
+
+#line 463 "lex.yy.c"
 
 #define INITIAL 0
+#define COMMENT 1
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -671,10 +678,10 @@ YY_DECL
 		}
 
 	{
-#line 11 "beans_lexer.l"
+#line 13 "beans_lexer.l"
 
 
-#line 677 "lex.yy.c"
+#line 684 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -701,13 +708,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 18 )
+				if ( yy_current_state >= 24 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 16 );
+		while ( yy_base[yy_current_state] != 23 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -733,7 +740,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 13 "beans_lexer.l"
+#line 15 "beans_lexer.l"
 {
   
   ptr->value = yytext;
@@ -750,7 +757,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 27 "beans_lexer.l"
+#line 29 "beans_lexer.l"
 {
   
   string str;
@@ -784,7 +791,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 58 "beans_lexer.l"
+#line 60 "beans_lexer.l"
 {
 
   ptr->TokenType = "INTEGER";
@@ -799,7 +806,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 70 "beans_lexer.l"
+#line 72 "beans_lexer.l"
 {
 
   lparen_found = true;
@@ -817,7 +824,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 85 "beans_lexer.l"
+#line 87 "beans_lexer.l"
 {
 
   if(lparen_found)
@@ -843,35 +850,33 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 108 "beans_lexer.l"
-{
-  char c = (char) yyinput();
-  do { c = (char) yyinput(); if(c == '\0') {exit(0);} } while(c  != '\n');
-}
+#line 110 "beans_lexer.l"
+;
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 113 "beans_lexer.l"
+#line 112 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 115 "beans_lexer.l"
+#line 114 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 117 "beans_lexer.l"
+#line 116 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 119 "beans_lexer.l"
+#line 118 "beans_lexer.l"
 ECHO;
 	YY_BREAK
-#line 873 "lex.yy.c"
+#line 877 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
+case YY_STATE_EOF(COMMENT):
 	yyterminate();
 
 	case YY_END_OF_BUFFER:
@@ -1167,7 +1172,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 18 )
+			if ( yy_current_state >= 24 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1195,11 +1200,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 18 )
+		if ( yy_current_state >= 24 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 17);
+	yy_is_jam = (yy_current_state == 23);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1875,7 +1880,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 119 "beans_lexer.l"
+#line 118 "beans_lexer.l"
 
 
 int yywrap() { return 1; }

@@ -8,6 +8,8 @@
 
 %}
 
+%s COMMENT
+
 %%
 
 [a-zA-Z_][a-zA-Z0-9_]* {
@@ -105,10 +107,7 @@
 
 }
 
-"***" {
-  char c = (char) yyinput();
-  do { c = (char) yyinput(); if(c == '\0') {exit(0);} } while(c  != '\n');
-}
+\*\*\*.*\*\*\* ;
 
 \n {;}
 
