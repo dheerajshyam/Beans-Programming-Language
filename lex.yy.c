@@ -845,53 +845,32 @@ case 6:
 YY_RULE_SETUP
 #line 108 "beans_lexer.l"
 {
-  string next;
-  bool commentEnded = false;
-  char c;
-  while((c = (char) yyinput()) != '\0')
-  {
-    if(next.length() == 3)
-    {
-      if(next != "***")
-      {
-        next.clear();
-        next += c;
-      }
-      else
-      {
-        commentEnded = true;
-        break;
-      }
-    }
-    next += c;
-  }
-  
-  if(!commentEnded)
-    return 0;
+  char c = (char) yyinput();
+  do { c = (char) yyinput(); if(c == '\0') {exit(0);} } while(c  != '\n');
 }
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 134 "beans_lexer.l"
+#line 113 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 136 "beans_lexer.l"
+#line 115 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 138 "beans_lexer.l"
+#line 117 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 140 "beans_lexer.l"
+#line 119 "beans_lexer.l"
 ECHO;
 	YY_BREAK
-#line 894 "lex.yy.c"
+#line 873 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1896,7 +1875,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 140 "beans_lexer.l"
+#line 119 "beans_lexer.l"
 
 
 int yywrap() { return 1; }

@@ -106,29 +106,8 @@
 }
 
 "***" {
-  string next;
-  bool commentEnded = false;
-  char c;
-  while((c = (char) yyinput()) != '\0')
-  {
-    if(next.length() == 3)
-    {
-      if(next != "***")
-      {
-        next.clear();
-        next += c;
-      }
-      else
-      {
-        commentEnded = true;
-        break;
-      }
-    }
-    next += c;
-  }
-  
-  if(!commentEnded)
-    return 0;
+  char c = (char) yyinput();
+  do { c = (char) yyinput(); if(c == '\0') {exit(0);} } while(c  != '\n');
 }
 
 \n {;}
