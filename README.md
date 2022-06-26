@@ -28,11 +28,14 @@ To avoid all these problems, I've come up with an idea to develop a programming 
 
 <hr/>
 
-**About telegram channel**
+**Official Communities**
 
-There is a dedicated telegram channel for discussions, idea(s) exchange(s), doubt(s) clarification(s), help(s), etc can be performed through this channel. This is the official community for this project.
+There are dedicated official communities for this project:
 
-Link for telegram channel: https://t.me/beans_lang_community_official
+  - https://t.me/beans_lang_community_official
+  - https://www.reddit.com/r/Beans_Language/
+
+Creating other communities inspite of/along with these communities is considered as violation of terms (check guidelines section below).
 
 <hr/>
 
