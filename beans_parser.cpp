@@ -7,7 +7,7 @@ extern Token* lex(string filename);
 struct GrammarTable
 {
     string key;
-    vector<vector<string>> values;
+    vector< vector<string> > values;
 
     vector<GrammarTable*> attachedNodes;
 };
@@ -27,8 +27,8 @@ bool isAllLower(string value)
 
 GrammarTable* baseNode;
 
-map<string, vector<string>> FIRST_table;
-map<string, vector<string>> FOLLOW_table;
+map<string, vector<string> > FIRST_table;
+map<string, vector<string> > FOLLOW_table;
 
 vector<string> 
     predictive_parsing_table[7][9]; 
@@ -90,7 +90,7 @@ struct OutputMappingStack
 {
     struct OutputMappingStack* bottom;
 
-    map<string, vector<string>> expansion;
+    map<string, vector<string> > expansion;
     bool isFilled;
 
     struct OutputMappingStack* top;
@@ -103,56 +103,56 @@ int main()
     GrammarTable* function_call = new GrammarTable();
     function_call->key = "function_call";
     function_call->values.push_back(
-        vector<string>{"object", "LPAREN", "params", "RPAREN"});
+        vector<string> {"object", "LPAREN", "params", "RPAREN"});
 
     GrammarTable* object = new GrammarTable();
     object->key = "object";
     object->values.push_back(
-        vector<string>{"typeobjects"});
+        vector<string> {"typeobjects"});
     object->values.push_back(
-        vector<string>{"IDENTIFIER"});
+        vector<string> {"IDENTIFIER"});
 
     GrammarTable* typeobject = new GrammarTable();
     typeobject->key = "typeobject";
     typeobject->values.push_back(
-        vector<string>{"STRING"});
+        vector<string> {"STRING"});
     typeobject->values.push_back(
-        vector<string>{"INTEGER"});
+        vector<string> {"INTEGER"});
     typeobject->values.push_back(
         vector<string>{"FLOAT"});
     typeobject->values.push_back(
-        vector<string>{"DOUBLE"});
+        vector<string> {"DOUBLE"});
 
     GrammarTable* typeobjects = new GrammarTable();
     typeobjects->key = "typeobjects";
     typeobjects->values.push_back(
-        vector<string>{"typeobject", "typeobjects"});
+        vector<string> {"typeobject", "typeobjects"});
     typeobjects->values.push_back(
-        vector<string>{"EPSILON"});
+        vector<string> {"EPSILON"});
 
     GrammarTable* param = new GrammarTable();
     param->key = "param";
     param->values.push_back(
-        vector<string>{"object"});
+        vector<string> {"object"});
 
     GrammarTable* params = new GrammarTable();
     params->key = "params";
     params->values.push_back(
-        vector<string>{"param", "comma", "params"});
+        vector<string> {"param", "comma", "params"});
     params->values.push_back(
-        vector<string>{"EPSILON"});
+        vector<string> {"EPSILON"});
     
     GrammarTable* comma = new GrammarTable();
     comma->key = "comma";
     comma->values.push_back(
-        vector<string>{"COMMA"});
+        (vector<string>) {"COMMA"});
     comma->values.push_back(
-        vector<string>{"EPSILON"});
+        vector<string> {"EPSILON"});
 
     GrammarTable* tuple = new GrammarTable();
     tuple->key = "tuple";
     tuple->values.push_back(
-        vector<string>{"LPAREN", "RPAREN"});
+        vector<string> {"LPAREN", "RPAREN"});
 
     baseNode->attachedNodes.push_back(function_call);
     baseNode->attachedNodes.push_back(object);
@@ -728,7 +728,9 @@ void parseTree()
                 FIRST_table[ssPtr->value].end(), tokenType)
                 == FIRST_table[ssPtr->value].end())
             {
-                std::cout << "Syntax error found in line " 
+                transform(tokenType.begin(), 
+                    tokenType.end(), tokenType.begin(), ::tolower);
+                std::cout << "Syntax error: unexpected " << tokenType << " found in line " 
                         << isPtr->lineno << "." << endl;
                 return;
             }
