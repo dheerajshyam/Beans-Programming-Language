@@ -138,8 +138,15 @@ int main()
     GrammarTable* params = new GrammarTable();
     params->key = "params";
     params->values.push_back(
-        vector<string>{"param", "COMMA", "params"});
+        vector<string>{"param", "comma", "params"});
     params->values.push_back(
+        vector<string>{"EPSILON"});
+    
+    GrammarTable* comma = new GrammarTable();
+    comma->key = "comma";
+    comma->values.push_back(
+        vector<string>{"COMMA"});
+    comma->values.push_back(
         vector<string>{"EPSILON"});
 
     GrammarTable* tuple = new GrammarTable();
@@ -153,6 +160,7 @@ int main()
     baseNode->attachedNodes.push_back(typeobjects);
     baseNode->attachedNodes.push_back(param);
     baseNode->attachedNodes.push_back(params);
+    baseNode->attachedNodes.push_back(comma);
     baseNode->attachedNodes.push_back(tuple);
     
     FIRST();
@@ -387,6 +395,22 @@ void ParsingTable()
     }
 }
 
+vector<vector<string>> getProductionWithKey(string key)
+{
+    vector<vector<string>> productions;
+    for(int i = 0; i < baseNode->attachedNodes.size(); i++)
+    {
+        if(key == 
+            baseNode->attachedNodes[i]
+                ->key)
+        {
+            productions = baseNode->attachedNodes[i]->values;
+            break;
+        }
+    }
+    return productions;
+}
+
 void parseTree()
 {
     string filename = "test.beans";
@@ -397,7 +421,7 @@ void parseTree()
     if(tokenHead == NULL)
     {
         delete tokenPtr;
-        cout << "Unable to locate the provided filename \""
+        std::cout << "Unable to locate the provided filename \""
                 << filename << "\" in the directory" << endl;
         return;
     }
@@ -486,7 +510,7 @@ void parseTree()
                             _loop_top:;
                             if(isPtr->top == NULL)
                             {
-                                cout << "Invalid syntax provided in line "
+                                std::cout << "Invalid syntax provided in line "
                                         << isPtr->bottom->lineno << "." << endl;
                                 return;
                             }
@@ -519,8 +543,95 @@ void parseTree()
                                             FOLLOW_table[productionValue].end(), token
                                             ) == FOLLOW_table[productionValue].end())
                                         {
-                                            cout << "Not matched 1: " << token << "." << endl;
-                                            return;
+                                            // Checking further
+                                        
+                                            if(isPtr->bottom != NULL)
+                                            {
+                                                string prevToken;
+                                                
+                                                if(isPtr->
+                                                    bottom->token.size() == 2)
+                                                    prevToken = isPtr->bottom->token[1];
+                                                else
+                                                    prevToken = isPtr->bottom->token[0];
+                                                
+                                                vector<vector<string>>
+                                                    productions =
+                                                        getProductionWithKey(productionValue);
+                                                
+                                                bool errorExists = false;
+                                                
+                                                for(vector<string> 
+                                                        production: productions)
+                                                {
+                                                    int prevI = i;
+                                                    i = 0;
+                                                    while(i < production.size())
+                                                    {
+                                                        string productionVal
+                                                            = production[i];
+                                                        if(!isAllLower(productionVal))
+                                                        {
+                                                            i++;
+
+                                                            if((i != 
+                                                                production.size())
+                                                                && (productionVal == prevToken))
+                                                            {
+                                                                i++;
+                                                                string nextProductionVal = production[i];
+                                                                if(isAllLower(nextProductionVal))
+                                                                {
+                                                                    if(std::find(FIRST_table[nextProductionVal].begin(),
+                                                                        FIRST_table[nextProductionVal].end(), token)
+                                                                        != FIRST_table[nextProductionVal].end())
+                                                                    {
+                                                                        goto end;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(token 
+                                                                        == nextProductionVal)
+                                                                        goto end;
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            bool notInFirst 
+                                                                = std::find(FIRST_table[productionVal].begin(),
+                                                                    FIRST_table[productionVal].end(), prevToken)
+                                                                    == FIRST_table[productionVal].end();
+                                                            
+                                                            bool notInFollow
+                                                                = std::find(FOLLOW_table[productionVal].begin(),
+                                                                    FOLLOW_table[productionVal].end(), token)
+                                                                    == FOLLOW_table[productionVal].end();
+                                                            
+                                                            if(!notInFirst
+                                                                || !notInFollow)
+                                                                goto end;
+                                                        }
+                                                        i++;
+                                                    }
+                                                    i = prevI;
+                                                }
+
+                                                std::cout << "5) Not matched 1: " 
+                                                    << token << "." << endl;
+                                                return;
+                                            }
+                                            else
+                                            {
+                                                std::cout << "6) Not matched 1: " 
+                                                    << token << "." << endl;
+                                                return;
+                                            }
+
+                                            // End.
+
+                                            end: {isPtr = isPtr->top; goto _production_inc_skip;};
                                         }
                                     }
                                 }
@@ -555,7 +666,7 @@ void parseTree()
                                     if(productionValue
                                         != *production.begin())
                                     {
-                                        cout << "Not matched 2: " << token << "." << endl;
+                                        std::cout << "Not matched 2: " << token << "." << endl;
                                         return;
                                     }
                                     else
@@ -707,7 +818,7 @@ void parseTree()
             for(string token : value)
                 std::cout << token << " ";    
         }
-        cout << endl;
+        std::cout << endl;
         ptr = ptr->top;
     }
 }

@@ -1,1 +1,1 @@
-disp ( "hello" )
+disp ( "hello" "world", name )
