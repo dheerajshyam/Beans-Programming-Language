@@ -103,7 +103,7 @@ int main()
     GrammarTable* function_call = new GrammarTable();
     function_call->key = "function_call";
     function_call->values.push_back(
-        vector<string>{"IDENTIFIER", "LPAREN", "params", "RPAREN"});
+        vector<string>{"object", "LPAREN", "params", "RPAREN"});
 
     GrammarTable* object = new GrammarTable();
     object->key = "object";
