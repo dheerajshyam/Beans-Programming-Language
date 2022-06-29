@@ -481,10 +481,44 @@ void parseTree()
             /
             sizeof(*start_points))
         {
+
             if(isPtr
                 ->top == NULL)
                 break;
             
+            if(grammarMatched)
+            {
+                if(isPtr->lineno 
+                    == isPtr->bottom->lineno)
+                {
+                    string tokenType;
+                    
+                    if(isPtr->token.size() == 2)
+                        tokenType = isPtr->token[1];
+                    else
+                        tokenType = isPtr->token[0];
+                    
+                    if(tokenType
+                        != "COLON")
+                    {
+                        cout << "Syntax error in line "
+                            << isPtr->bottom->lineno 
+                            << ": consecutive statements on a line must be seperated by ';'" 
+                            << endl;
+                        return;
+                    }
+                    else
+                    {
+                        if(isPtr->top 
+                            != NULL)
+                        {
+                            isPtr->bottom->top = isPtr->top;
+                            isPtr = isPtr->top;
+                        }
+                    }
+                }
+            }
+
             string _key
                 = start_points[index];
 
@@ -510,7 +544,6 @@ void parseTree()
                         while(productionIndex
                                 < production.size())
                         {
-                            _loop_top:;
                             if(isPtr->top == NULL)
                             {
                                 std::cout << "Invalid syntax provided in line "
