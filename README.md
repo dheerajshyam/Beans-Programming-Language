@@ -31,6 +31,8 @@ To avoid all these problems, I've come up with an idea to develop a programming 
   - **beans_lexer.hpp** - This file is header file for beans_lexer.cpp file.<br>
   - **beans_lexer.l** - This file contains flex code for lexer.<br>
   - **beans_parser.cpp** - This file contains hand-written parser code for this language in C++.<br>
+  - **beans_parser.hpp** - This file is header file for beans_parser.cpp.<br>
+  - **beans_semantic_analyzer.cpp** - This file contains semantic analysis C++ code for beans.<br>
   - **links.yaml** - Contains links for various repos which contains base and modified source codes along with this base repo.<br>
   - **test.beans** - This file contains test source code of beans language.<br>
 
@@ -51,7 +53,7 @@ Creating other communities inspite of/along with these communities is considered
 
 After downloading all the files in this repo, open terminal for the location in which these files are located and follow the below instructions.
   
-  - g++ -std=c++17 beans_lexer.cpp beans_parser.cpp and hit enter.
+  - Type g++ -std=c++17 beans_lexer.cpp beans_parser.cpp beans_semantic_analyzer.cpp and hit enter.
   - Next
     - If Windows:
       - Type a and hit enter.
