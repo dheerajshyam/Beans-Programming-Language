@@ -71,7 +71,29 @@ int main()
     FOLLOW();
     ParsingTable();
 
-    parseTree();
+    OutputMappingStack* ptr = parseTree();
+
+    while(ptr != NULL)
+    {
+        for(const auto&
+            [key, value]
+            : ptr->expansion)
+        {   
+            std::cout << key << " -> ";
+            for(string token : value)
+                std::cout << token << " ";    
+        }
+        std::cout << endl;
+        ptr = ptr->top;
+    }
+
+    // string code = "Hello";
+    // yy_scan_string((const char*)code.c_str());
+    // code = "World";
+    // yylex();
+    // code = "Hello";
+    // yy_scan_string((const char*)code.c_str());
+    // yylex();
 
     return 0;
 }

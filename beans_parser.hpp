@@ -25,12 +25,6 @@ struct GrammarTable
     vector<GrammarTable*> attachedNodes;
 };
 
-void FIRST();
-void FOLLOW();
-void ParsingTable();
-void parseTree();
-void start();
-
 extern bool isAllLower(string value);
 
 extern GrammarTable* baseNode;
@@ -97,5 +91,11 @@ struct OutputMappingStack
 
     struct OutputMappingStack* top;
 };
+
+void FIRST();
+void FOLLOW();
+void ParsingTable();
+
+OutputMappingStack* parseTree();
 
 #endif // BEANS_PARSER_HPP

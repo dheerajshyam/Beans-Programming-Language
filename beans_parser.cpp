@@ -265,7 +265,7 @@ vector<vector<string>> getProductionWithKey(string key)
     return productions;
 }
 
-void parseTree()
+OutputMappingStack* parseTree()
 {
     string filename = "test.beans";
 
@@ -277,7 +277,7 @@ void parseTree()
         delete tokenPtr;
         std::cout << "Unable to locate the provided filename \""
                 << filename << "\" in the directory" << endl;
-        return;
+        return NULL;
     }
     
     OutputMappingStack* omsBottom 
@@ -360,7 +360,7 @@ void parseTree()
                         << isPtr->bottom->lineno
                         << ": consecutive statements on a line must be seperated by ';'" 
                         << endl;
-                    return;
+                    return NULL;
                 }
                 else
                 {
@@ -500,14 +500,14 @@ void parseTree()
 
                                                 std::cout << "Not matched 1: " 
                                                     << token << "." << endl;
-                                                return;
+                                                return NULL;
                                             }
                                             else
                                             {
                                                 
                                                 std::cout << "Not matched 1: " 
                                                     << token << "." << endl;
-                                                return;
+                                                return NULL;
                                             }
 
                                             // End.
@@ -548,7 +548,7 @@ void parseTree()
                                         != *production.begin())
                                     {
                                         std::cout << "Not matched 2: " << token << "." << endl;
-                                        return;
+                                        return NULL;
                                     }
                                     else
                                         goto _index_inc;
@@ -613,7 +613,7 @@ void parseTree()
                     tokenType.end(), tokenType.begin(), ::tolower);
                 std::cout << "Syntax error: unexpected " << tokenType << " found in line " 
                         << isPtr->lineno << "." << endl;
-                return;
+                return NULL;
             }
             
             vector<string> production = 
@@ -671,7 +671,7 @@ void parseTree()
                 std::cout << "Syntax error: Unexpected " << tokenType 
                     << " provided (expecting " << ssPtr->value << ") in line " 
                     << isPtr->lineno << "." << endl;
-                return;
+                return NULL;
             }
             InputStack* ptr = isPtr;
             isPtr = isPtr->top;
@@ -689,27 +689,5 @@ void parseTree()
 
     omsPtr->top = NULL;
 
-    OutputMappingStack* ptr = omsBottom;
-
-    while(ptr != NULL)
-    {
-        for(const auto&
-            [key, value]
-            : ptr->expansion)
-        {   
-            std::cout << key << " -> ";
-            for(string token : value)
-                std::cout << token << " ";    
-        }
-        std::cout << endl;
-        ptr = ptr->top;
-    }
-
-    // string code = "Hello";
-    // yy_scan_string((const char*)code.c_str());
-    // code = "World";
-    // yylex();
-    // code = "Hello";
-    // yy_scan_string((const char*)code.c_str());
-    // yylex();
+    return omsBottom;
 }
