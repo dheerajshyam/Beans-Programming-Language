@@ -8,14 +8,17 @@
 
   bool lparen_found = false;
 
+  int lexpos;
+
 %}
+
+%option outfile="beans_lexer.cpp" header-file="beans_lexer.hpp"
+%option yylineno
 
 %%
 
 [a-zA-Z_][a-zA-Z0-9_]* {
 
-  cout << "Identifier: " << yytext << endl;
-  
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
   ptr->lineno = yylineno;
@@ -26,6 +29,8 @@
   
   ptr->link = link;
   ptr = link;
+
+  lexpos += yyleng;
 
 }
 
@@ -46,11 +51,11 @@
       str += c;
       c = yyinput();
   }
-
+  
   ptr->value = str;
   ptr->TokenType = "STRING";
   ptr->lineno = yylineno;
-  
+
   ptr->count = 2;
 
   Token* link = new Token();
@@ -116,7 +121,6 @@
 
   ptr->link = link;
   ptr = link;
-
 }
 
 \) {
@@ -185,7 +189,7 @@
 
 \n {yylineno++;}
 
-[ |\t\b\f\r] {;}
+[ |\t\b\f\r] {lexpos += yyleng;}
 
 . {;}
 

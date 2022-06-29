@@ -1,9 +1,9 @@
 // Author: Venkata Subbu Dheeraj Shyam Polavarapu.
 
 #include "Token.hpp"
+#include "beans_lexer.hpp"
 
-typedef struct yy_buffer_state *YY_BUFFER_STATE;
-extern YY_BUFFER_STATE 
+extern YY_BUFFER_STATE
     yy_scan_string (const char * yystr );
 
 extern int
@@ -469,10 +469,18 @@ void parseTree()
         tokenPtr
             = tokenPtr->link;
         
-        InputStack* top = new InputStack();
-        isPtr->top = top;
-        isPtr->top->bottom = isPtr;
-        isPtr = top;
+        if(tokenPtr != NULL)
+        {
+            InputStack* top = new InputStack();
+            isPtr->top = top;
+            isPtr->top->bottom = isPtr;
+            isPtr = top;
+        }
+        else
+        {
+            isPtr->top = NULL;
+            isPtr->top->bottom = isPtr;
+        }
     }
 
     isPtr = isBottom;
@@ -504,7 +512,7 @@ void parseTree()
                     && (lineno == prevLineno))
                 {
                     cout << "Syntax error in line "
-                        << isPtr->bottom->lineno 
+                        << isPtr->bottom->lineno
                         << ": consecutive statements on a line must be seperated by ';'" 
                         << endl;
                     return;
@@ -538,16 +546,10 @@ void parseTree()
                         int productionIndex= 0;
                         bool hasRelation = false;
 
-                        while(productionIndex
+                        while((productionIndex
                                 < production.size())
+                            && (isPtr != NULL))
                         {
-                            if(isPtr->top == NULL)
-                            {
-                                std::cout << "Invalid syntax provided in line "
-                                        << isPtr->bottom->lineno << "." << endl;
-                                return;
-                            }
-
                             bool skipProductionInc = false;
 
                             string token;
@@ -858,7 +860,11 @@ void parseTree()
         ptr = ptr->top;
     }
 
-    string code = "Hello";
-    yy_scan_string((const char*)"hello");
-    yylex();
+    // string code = "Hello";
+    // yy_scan_string((const char*)code.c_str());
+    // code = "World";
+    // yylex();
+    // code = "Hello";
+    // yy_scan_string((const char*)code.c_str());
+    // yylex();
 }
