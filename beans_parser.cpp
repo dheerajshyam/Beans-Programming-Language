@@ -488,34 +488,24 @@ void parseTree()
             
             if(grammarMatched)
             {
-                if(isPtr->lineno 
-                    == isPtr->bottom->lineno)
+                int lineno = isPtr->lineno;
+                int prevLineno = isPtr->bottom->lineno;
+
+                string token = isPtr->token[0];
+
+                if(token != "COLON" 
+                    && (lineno == prevLineno))
                 {
-                    string tokenType;
-                    
-                    if(isPtr->token.size() == 2)
-                        tokenType = isPtr->token[1];
-                    else
-                        tokenType = isPtr->token[0];
-                    
-                    if(tokenType
-                        != "COLON")
-                    {
-                        cout << "Syntax error in line "
-                            << isPtr->bottom->lineno 
-                            << ": consecutive statements on a line must be seperated by ';'" 
-                            << endl;
-                        return;
-                    }
-                    else
-                    {
-                        if(isPtr->top 
-                            != NULL)
-                        {
-                            isPtr->bottom->top = isPtr->top;
-                            isPtr = isPtr->top;
-                        }
-                    }
+                    cout << "Syntax error in line "
+                        << isPtr->bottom->lineno 
+                        << ": consecutive statements on a line must be seperated by ';'" 
+                        << endl;
+                    return;
+                }
+                else
+                {
+                    isPtr->bottom->top = isPtr->top;
+                    isPtr = isPtr->top;
                 }
             }
 
@@ -561,7 +551,7 @@ void parseTree()
                                 token = isPtr->token[0];
                             
                             string productionValue
-                                = production[productionIndex];                            
+                                = production[productionIndex];     
 
                             if(isAllLower
                                 (productionValue))
