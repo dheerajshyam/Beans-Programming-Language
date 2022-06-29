@@ -10,8 +10,6 @@
 
 %}
 
-%s COMMENT
-
 %%
 
 [a-zA-Z_][a-zA-Z0-9_]* {
@@ -19,6 +17,7 @@
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
   ptr->lineno = yylineno;
+  
   ptr->count = 2;
 
   Token* link = new Token();
@@ -49,6 +48,7 @@
   ptr->value = str;
   ptr->TokenType = "STRING";
   ptr->lineno = yylineno;
+  
   ptr->count = 2;
 
   Token* link = new Token();
@@ -61,8 +61,10 @@
 
 [0-9]* {
 
+  ptr->value = yytext;
   ptr->TokenType = "INTEGER";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -73,8 +75,10 @@
 
 [0-9]*\.[0-9]* {
 
+  ptr->value = yytext;
   ptr->TokenType = "DOUBLE";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -85,8 +89,10 @@
 
 -[0-9]*\.[0-9]* {
 
+  ptr->value = yytext;
   ptr->TokenType = "FLOAT";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -101,6 +107,7 @@
 
   ptr->TokenType = "LPAREN";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -114,10 +121,12 @@
 
   if(lparen_found)
   {
+
     lparen_found = false;
 
     ptr->TokenType = "RPAREN";
     ptr->lineno = yylineno;
+    
     ptr->count = 1;
 
     Token* link = new Token();
@@ -134,8 +143,10 @@
 }
 
 \, {
+  
   ptr->TokenType = "COMMA";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -144,7 +155,33 @@
   ptr = link;
 }
 
-\n {;}
+\$ {
+
+  ptr->TokenType = "DOLLAR";
+  ptr->lineno = yylineno;
+  
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
+
+\; {
+
+  ptr->TokenType = "COLON";
+  ptr->lineno = yylineno;
+  
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
+
+\n {yylineno++;}
 
 [ |\t\b\f\r] {;}
 

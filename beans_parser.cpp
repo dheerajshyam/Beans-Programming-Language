@@ -2,7 +2,8 @@
 
 #include "Token.hpp"
 
-extern Token* lex(string filename);
+extern Token* 
+    lex(string filename);
 
 struct GrammarTable
 {
@@ -82,6 +83,7 @@ struct InputStack
 
     vector<string> token;
     int lineno;
+    int lexpos;
 
     struct InputStack* top;
 };
@@ -455,6 +457,7 @@ void parseTree()
         
         isPtr->token = token;
         isPtr->lineno = tokenPtr->lineno;
+        isPtr->lexpos = tokenPtr->lexpos;
 
         tokenPtr
             = tokenPtr->link;
@@ -618,13 +621,14 @@ void parseTree()
                                                     i = prevI;
                                                 }
 
-                                                std::cout << "5) Not matched 1: " 
+                                                std::cout << "Not matched 1: " 
                                                     << token << "." << endl;
                                                 return;
                                             }
                                             else
                                             {
-                                                std::cout << "6) Not matched 1: " 
+                                                
+                                                std::cout << "Not matched 1: " 
                                                     << token << "." << endl;
                                                 return;
                                             }

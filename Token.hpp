@@ -10,12 +10,15 @@
 #include <map>
 #include <algorithm>
 
+#include <string.h>
+
 using namespace std;
 
 struct Token
 {
     int count;
     int lineno;
+    int lexpos;
 
     bool marked;
 

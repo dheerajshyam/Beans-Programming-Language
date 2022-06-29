@@ -352,8 +352,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 12
-#define YY_END_OF_BUFFER 13
+#define YY_NUM_RULES 14
+#define YY_END_OF_BUFFER 15
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -363,8 +363,8 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[25] =
     {   0,
-        3,    3,    3,    3,   13,   11,   10,    9,    2,    6,
-        7,    8,   11,    4,    3,    1,    5,    0,    4,    4,
+        3,    3,   15,   13,   12,   11,    2,    9,    6,    7,
+        8,   13,    4,    3,   10,    1,    5,    0,    4,    4,
         3,    1,    5,    0
     } ;
 
@@ -373,17 +373,17 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    2,    2,    3,
         1,    2,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    4,    1,    1,    1,    1,    1,    5,
-        6,    1,    1,    7,    8,    9,    1,   10,   10,   10,
-       10,   10,   10,   10,   10,   10,   10,    1,    1,    1,
-        1,    1,    1,    1,   11,   11,   11,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-        1,    1,    1,    1,   11,    1,   11,   11,   11,   11,
+        1,    2,    1,    4,    1,    5,    1,    1,    1,    6,
+        7,    1,    1,    8,    9,   10,    1,   11,   11,   11,
+       11,   11,   11,   11,   11,   11,   11,    1,   12,    1,
+        1,    1,    1,    1,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+        1,    1,    1,    1,   13,    1,   13,   13,   13,   13,
 
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-       11,   11,    1,    2,    1,    1,    1,    1,    1,    1,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,    1,    2,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -400,40 +400,40 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[12] =
+static const YY_CHAR yy_meta[14] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
-        2
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        2,    1,    2
     } ;
 
 static const flex_int16_t yy_base[26] =
     {   0,
-        0,    0,    0,    0,   22,   23,   23,   23,   23,   23,
-       23,   23,    3,   11,    5,    0,   10,    0,    9,    8,
-        0,    0,    7,   23,   14
+        0,    0,   24,   25,   25,   25,   25,   25,   25,   25,
+       25,    4,   12,    6,   25,    0,   11,    0,   10,    9,
+        0,    0,    8,   25,   16
     } ;
 
 static const flex_int16_t yy_def[26] =
     {   0,
-       24,    1,    1,    1,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24,   24,   25,   24,   13,   24,   24,
-       15,   25,   24,    0,   24
+       24,    1,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24,   25,   24,   12,   24,   24,
+       14,   25,   24,    0,   24
     } ;
 
-static const flex_int16_t yy_nxt[35] =
+static const flex_int16_t yy_nxt[39] =
     {   0,
-        6,    7,    8,    9,   10,   11,   12,   13,   14,   15,
-       16,   17,   18,   20,   21,   22,   23,   19,   19,   23,
-       19,   24,    5,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24
+        4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
+       14,   15,   16,   17,   18,   20,   21,   22,   23,   19,
+       19,   23,   19,   24,    3,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24,   24,   24,   24
     } ;
 
-static const flex_int16_t yy_chk[35] =
+static const flex_int16_t yy_chk[39] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,   13,   13,   15,   15,   25,   23,   20,   19,   17,
-       14,    5,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24
+        1,    1,    1,   12,   12,   14,   14,   25,   23,   20,
+       19,   17,   13,    3,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24,   24,   24,   24
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -462,11 +462,9 @@ char *yytext;
   bool lparen_found = false;
 
 #line 464 "lex.yy.c"
-
-#line 466 "lex.yy.c"
+#line 465 "lex.yy.c"
 
 #define INITIAL 0
-#define COMMENT 1
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -681,10 +679,10 @@ YY_DECL
 		}
 
 	{
-#line 15 "beans_lexer.l"
+#line 13 "beans_lexer.l"
 
 
-#line 687 "lex.yy.c"
+#line 685 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -717,7 +715,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 23 );
+		while ( yy_base[yy_current_state] != 25 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -743,12 +741,13 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 17 "beans_lexer.l"
+#line 15 "beans_lexer.l"
 {
   
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
   ptr->lineno = yylineno;
+  
   ptr->count = 2;
 
   Token* link = new Token();
@@ -760,7 +759,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 31 "beans_lexer.l"
+#line 30 "beans_lexer.l"
 {
   
   string str;
@@ -782,6 +781,7 @@ YY_RULE_SETUP
   ptr->value = str;
   ptr->TokenType = "STRING";
   ptr->lineno = yylineno;
+  
   ptr->count = 2;
 
   Token* link = new Token();
@@ -797,8 +797,10 @@ YY_RULE_SETUP
 #line 62 "beans_lexer.l"
 {
 
+  ptr->value = yytext;
   ptr->TokenType = "INTEGER";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -809,11 +811,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 74 "beans_lexer.l"
+#line 76 "beans_lexer.l"
 {
 
+  ptr->value = yytext;
   ptr->TokenType = "DOUBLE";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -824,11 +828,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 86 "beans_lexer.l"
+#line 90 "beans_lexer.l"
 {
 
+  ptr->value = yytext;
   ptr->TokenType = "FLOAT";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -839,13 +845,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 98 "beans_lexer.l"
+#line 104 "beans_lexer.l"
 {
 
   lparen_found = true;
 
   ptr->TokenType = "LPAREN";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -857,15 +864,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 113 "beans_lexer.l"
+#line 120 "beans_lexer.l"
 {
 
   if(lparen_found)
   {
+
     lparen_found = false;
 
     ptr->TokenType = "RPAREN";
     ptr->lineno = yylineno;
+    
     ptr->count = 1;
 
     Token* link = new Token();
@@ -883,10 +892,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 136 "beans_lexer.l"
+#line 145 "beans_lexer.l"
 {
+  
   ptr->TokenType = "COMMA";
   ptr->lineno = yylineno;
+  
   ptr->count = 1;
 
   Token* link = new Token();
@@ -896,29 +907,60 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case 9:
-/* rule 9 can match eol */
 YY_RULE_SETUP
-#line 147 "beans_lexer.l"
-{;}
+#line 158 "beans_lexer.l"
+{
+
+  ptr->TokenType = "DOLLAR";
+  ptr->lineno = yylineno;
+  
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 149 "beans_lexer.l"
-{;}
+#line 171 "beans_lexer.l"
+{
+
+  ptr->TokenType = "COLON";
+  ptr->lineno = yylineno;
+  
+  ptr->count = 1;
+
+  Token* link = new Token();
+
+  ptr->link = link;
+  ptr = link;
+}
 	YY_BREAK
 case 11:
+/* rule 11 can match eol */
 YY_RULE_SETUP
-#line 151 "beans_lexer.l"
-{;}
+#line 184 "beans_lexer.l"
+{yylineno++;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 153 "beans_lexer.l"
+#line 186 "beans_lexer.l"
+{;}
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 188 "beans_lexer.l"
+{;}
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 190 "beans_lexer.l"
 ECHO;
 	YY_BREAK
-#line 919 "lex.yy.c"
+#line 962 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(COMMENT):
 	yyterminate();
 
 	case YY_END_OF_BUFFER:
@@ -1922,7 +1964,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 153 "beans_lexer.l"
+#line 190 "beans_lexer.l"
 
 
 int yywrap() { return 1; }
