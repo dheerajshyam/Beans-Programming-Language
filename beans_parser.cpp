@@ -2,6 +2,13 @@
 
 #include "Token.hpp"
 
+typedef struct yy_buffer_state *YY_BUFFER_STATE;
+extern YY_BUFFER_STATE 
+    yy_scan_string (const char * yystr );
+
+extern int
+    yylex(void);
+
 extern Token* 
     lex(string filename);
 
@@ -850,4 +857,8 @@ void parseTree()
         std::cout << endl;
         ptr = ptr->top;
     }
+
+    string code = "Hello";
+    yy_scan_string((const char*)"hello");
+    yylex();
 }

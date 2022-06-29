@@ -743,6 +743,8 @@ case 1:
 YY_RULE_SETUP
 #line 15 "beans_lexer.l"
 {
+
+  cout << "Identifier: " << yytext << endl;
   
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
@@ -759,7 +761,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "beans_lexer.l"
+#line 32 "beans_lexer.l"
 {
   
   string str;
@@ -794,7 +796,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 62 "beans_lexer.l"
+#line 64 "beans_lexer.l"
 {
 
   ptr->value = yytext;
@@ -811,7 +813,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 76 "beans_lexer.l"
+#line 78 "beans_lexer.l"
 {
 
   ptr->value = yytext;
@@ -828,7 +830,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 90 "beans_lexer.l"
+#line 92 "beans_lexer.l"
 {
 
   ptr->value = yytext;
@@ -845,7 +847,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 104 "beans_lexer.l"
+#line 106 "beans_lexer.l"
 {
 
   lparen_found = true;
@@ -864,7 +866,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 120 "beans_lexer.l"
+#line 122 "beans_lexer.l"
 {
 
   if(lparen_found)
@@ -892,7 +894,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 145 "beans_lexer.l"
+#line 147 "beans_lexer.l"
 {
   
   ptr->TokenType = "COMMA";
@@ -908,7 +910,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 158 "beans_lexer.l"
+#line 160 "beans_lexer.l"
 {
 
   ptr->TokenType = "DOLLAR";
@@ -924,7 +926,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 171 "beans_lexer.l"
+#line 173 "beans_lexer.l"
 {
 
   ptr->TokenType = "COLON";
@@ -941,25 +943,25 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 184 "beans_lexer.l"
+#line 186 "beans_lexer.l"
 {yylineno++;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 186 "beans_lexer.l"
+#line 188 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 188 "beans_lexer.l"
+#line 190 "beans_lexer.l"
 {;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 190 "beans_lexer.l"
+#line 192 "beans_lexer.l"
 ECHO;
 	YY_BREAK
-#line 962 "lex.yy.c"
+#line 964 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1964,7 +1966,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 190 "beans_lexer.l"
+#line 192 "beans_lexer.l"
 
 
 int yywrap() { return 1; }

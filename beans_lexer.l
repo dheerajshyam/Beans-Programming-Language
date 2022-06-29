@@ -13,6 +13,8 @@
 %%
 
 [a-zA-Z_][a-zA-Z0-9_]* {
+
+  cout << "Identifier: " << yytext << endl;
   
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
