@@ -314,17 +314,12 @@ OutputMappingStack* parseTree()
         tokenPtr
             = tokenPtr->link;
         
-        if(tokenPtr != NULL)
+        if(tokenPtr->link != NULL)
         {
             InputStack* top = new InputStack();
             isPtr->top = top;
             isPtr->top->bottom = isPtr;
             isPtr = top;
-        }
-        else
-        {
-            isPtr->top = NULL;
-            isPtr->top->bottom = isPtr;
         }
     }
 

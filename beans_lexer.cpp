@@ -980,7 +980,7 @@ case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
 #line 190 "beans_lexer.l"
-{yylineno++;}
+;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP

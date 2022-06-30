@@ -187,7 +187,7 @@
   ptr = link;
 }
 
-\n {yylineno++;}
+\n ;
 
 [ |\t\b\f\r] {lexpos += yyleng;}
 
