@@ -277,7 +277,7 @@ OutputMappingStack* parseTree()
         delete tokenPtr;
         std::cout << "Unable to locate the provided filename \""
                 << filename << "\" in the directory" << endl;
-        return NULL;
+        std::exit(0);
     }
     
     OutputMappingStack* omsBottom 
@@ -295,7 +295,7 @@ OutputMappingStack* parseTree()
     StorageStack* ssPtr = ssBottom;
     ssPtr->bottom = NULL;
 
-    while(tokenPtr->link != NULL)
+    while(tokenPtr != NULL)
     {
         vector<string> token;
         
@@ -314,19 +314,20 @@ OutputMappingStack* parseTree()
         tokenPtr
             = tokenPtr->link;
         
-        if(tokenPtr->link != NULL)
+        if(tokenPtr != NULL)
         {
             InputStack* top = new InputStack();
             isPtr->top = top;
-            isPtr->top->bottom = isPtr;
+            isPtr->
+                top->
+                    bottom = isPtr;
             isPtr = top;
         }
     }
 
     isPtr = isBottom;
 
-    while(isPtr
-            ->top != NULL)
+    while(isPtr != NULL)
     {
         int index = 0;
         bool grammarMatched = false;
@@ -336,40 +337,18 @@ OutputMappingStack* parseTree()
             /
             sizeof(*start_points))
         {
-
-            if(isPtr
-                ->top == NULL)
-                break;
-            
-            if(grammarMatched)
+            if(isPtr == NULL)
             {
-                int lineno = isPtr->lineno;
-                int prevLineno = isPtr->bottom->lineno;
-
-                string token = isPtr->token[0];
-
-                if(token != "COLON" 
-                    && (lineno == prevLineno))
-                {
-                    cout << "Syntax error in line "
-                        << isPtr->bottom->lineno
-                        << ": consecutive statements on a line must be seperated by ';'" 
-                        << endl;
-                    return NULL;
-                }
-                else
-                {
-                    isPtr->bottom->top = isPtr->top;
-                    isPtr = isPtr->top;
-                }
+                break;
             }
-
+            
             string _key
                 = start_points[index];
 
             int i = 0;
 
-            while(i < baseNode->attachedNodes.size())
+            while(i < baseNode->
+                    attachedNodes.size())
             {
                 if(baseNode->attachedNodes
                     [i]->key == _key)
@@ -386,14 +365,13 @@ OutputMappingStack* parseTree()
                         int productionIndex= 0;
                         bool hasRelation = false;
 
-                        while((productionIndex
+                        while(productionIndex
                                 < production.size())
-                            && (isPtr != NULL))
                         {
                             bool skipProductionInc = false;
 
                             string token;
-                                
+
                             if(isPtr->token.size() == 2)
                                 token = isPtr->token[1];
                             else
@@ -495,19 +473,23 @@ OutputMappingStack* parseTree()
 
                                                 std::cout << "Not matched 1: " 
                                                     << token << "." << endl;
-                                                return NULL;
+                                                std::exit(0);
                                             }
                                             else
                                             {
                                                 
                                                 std::cout << "Not matched 1: " 
                                                     << token << "." << endl;
-                                                return NULL;
+                                                std::exit(0);
                                             }
 
                                             // End.
 
-                                            end: {isPtr = isPtr->top; goto _production_inc_skip;};
+                                            end:
+                                            {
+                                                isPtr = isPtr->top;
+                                                goto _production_inc_skip;
+                                            };
                                         }
                                     }
                                 }
@@ -516,11 +498,8 @@ OutputMappingStack* parseTree()
                                     [ non_terminal_id_mapping[productionValue] ]
                                     [ terminal_id_mapping[token] ].size() != 0)
                                 {
-                                    if(isPtr->top != NULL)
-                                    {
-                                        isPtr = isPtr->top;
-                                        goto _production_inc_skip;
-                                    }
+                                    isPtr = isPtr->top;
+                                    goto _production_inc_skip;
                                 }
                                 else
                                 {
@@ -531,19 +510,20 @@ OutputMappingStack* parseTree()
                             {
                                 if(productionValue == token)
                                 {
-                                    if(isPtr->top != NULL)
-                                    {
-                                        isPtr = isPtr->top;
-                                        goto _production_inc;
-                                    }
+                                    isPtr = isPtr->top;
+                                    goto _production_inc;
+                                    
                                 }
                                 else
                                 {
                                     if(productionValue
                                         != *production.begin())
                                     {
-                                        std::cout << "Not matched 2: " << token << "." << endl;
-                                        return NULL;
+                                        std::cout << "Not matched 2: " 
+                                            << productionValue
+                                            << ", "
+                                            << token << "." << endl;
+                                        std::exit(0);
                                     }
                                     else
                                         goto _index_inc;
@@ -572,6 +552,7 @@ OutputMappingStack* parseTree()
                 }
                 i++;
             }
+
             if(!grammarMatched)
                 _index_inc: index++;
             else
@@ -608,7 +589,7 @@ OutputMappingStack* parseTree()
                     tokenType.end(), tokenType.begin(), ::tolower);
                 std::cout << "Syntax error: unexpected " << tokenType << " found in line " 
                         << isPtr->lineno << "." << endl;
-                return NULL;
+                std::exit(0);
             }
             
             vector<string> production = 
@@ -666,7 +647,7 @@ OutputMappingStack* parseTree()
                 std::cout << "Syntax error: Unexpected " << tokenType 
                     << " provided (expecting " << ssPtr->value << ") in line " 
                     << isPtr->lineno << "." << endl;
-                return NULL;
+                std::exit(0);
             }
             InputStack* ptr = isPtr;
             isPtr = isPtr->top;

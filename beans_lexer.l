@@ -22,8 +22,8 @@
   ptr->value = yytext;
   ptr->TokenType = "IDENTIFIER";
   ptr->lineno = yylineno;
-  
   ptr->count = 2;
+  ptr->marked = true;
 
   Token* link = new Token();
   
@@ -55,8 +55,8 @@
   ptr->value = str;
   ptr->TokenType = "STRING";
   ptr->lineno = yylineno;
-
   ptr->count = 2;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -71,8 +71,8 @@
   ptr->value = yytext;
   ptr->TokenType = "INTEGER";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -85,8 +85,8 @@
   ptr->value = yytext;
   ptr->TokenType = "DOUBLE";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -99,8 +99,8 @@
   ptr->value = yytext;
   ptr->TokenType = "FLOAT";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -114,8 +114,8 @@
 
   ptr->TokenType = "LPAREN";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -132,8 +132,8 @@
 
     ptr->TokenType = "RPAREN";
     ptr->lineno = yylineno;
-    
     ptr->count = 1;
+    ptr->marked = true;
 
     Token* link = new Token();
 
@@ -152,8 +152,8 @@
   
   ptr->TokenType = "COMMA";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -165,8 +165,8 @@
 
   ptr->TokenType = "DOLLAR";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -178,8 +178,8 @@
 
   ptr->TokenType = "COLON";
   ptr->lineno = yylineno;
-  
   ptr->count = 1;
+  ptr->marked = true;
 
   Token* link = new Token();
 
@@ -203,7 +203,24 @@ Token* lex(string filename)
     if(yyin == NULL)
       return NULL;
     yylex();
+    ptr->link = NULL;
     fclose(yyin);
+
+    ptr = head;
+
+    Token* prevPtr;
+
+    while(ptr != NULL)
+    {
+      if(!ptr->marked)
+      {
+        prevPtr->link = NULL;
+        delete ptr;
+        ptr = prevPtr;
+      }
+      prevPtr = ptr;
+      ptr = ptr->link;
+    }
 
     return head;
 }
